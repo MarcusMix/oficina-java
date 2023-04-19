@@ -19,12 +19,15 @@ import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.util.Scanner;
 import java.io.IOException;
+import javax.swing.ImageIcon;
+import java.awt.Color;
+import javax.swing.JPasswordField;
 
 public class Login extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField inputUsuario;
-	private JTextField inputSenha;
+	private JPasswordField inputSenha;
 
 	/**
 	 * Launch the application.
@@ -76,9 +79,8 @@ public class Login extends JDialog {
 		contentPanel.add(inputUsuario);
 		inputUsuario.setColumns(10);
 		
-		inputSenha = new JTextField();
-		inputSenha.setColumns(10);
-		inputSenha.setBounds(138, 145, 125, 20);
+		inputSenha = new JPasswordField();
+		inputSenha.setBounds(138, 147, 125, 20);
 		contentPanel.add(inputSenha);
 		{
 			JPanel buttonPane = new JPanel();
@@ -86,6 +88,10 @@ public class Login extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.setFont(new Font("Verdana", Font.PLAIN, 11));
+				okButton.setSelectedIcon(null);
+				okButton.setBackground(new Color(102, 204, 51));
+				okButton.setIcon(null);
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						String DB_NAME = "ordemservico";
@@ -95,7 +101,7 @@ public class Login extends JDialog {
 						String QUERY = "SELECT * FROM usuarios WHERE usuario = '" 
 						+ inputUsuario.getText() + "' AND senha = '" + inputSenha.getText() + "'";
 						
-						Connection conn;
+						Connection conn = null;
 						PreparedStatement stmt;
 						ResultSet rs;
 						
@@ -107,16 +113,20 @@ public class Login extends JDialog {
 							conn = DriverManager.getConnection(DB_URL, USER, PASS);
 							stmt =  conn.prepareStatement(QUERY);
 						    rs = stmt.executeQuery(QUERY);
-							//System.out.println(QUERY);
+//							System.out.println(QUERY);
 
 							while (rs.next()) {
 								 usuario = rs.getString("usuario");
 								
-								 System.out.println(usuario);
+								 //usuário existe
 								 if(usuario.equals(inputUsuario.getText())) {
-									handleWindowMessageSucess("Bem-vindo de volta!");
-									Login.this.dispose();
-								 }
+									 handleWindowMessageSucess("Bem-vindo de volta!");
+										Login.this.dispose();
+								 } 
+							}
+							//usuário não existe
+							if(usuario == null) {
+								handleWindowMessage("Usuário ou senha incorretos!");
 							}
 
 						} catch (SQLException erro) {
@@ -126,13 +136,13 @@ public class Login extends JDialog {
 						
 						
 						//fechar conexao
-//						try {
-//						    if (conn != null) {
-//						        conn.close();
-//						    }
-//						} catch (SQLException error) {
-//						    System.out.println("Erro ao fechar a conexão com o banco de dados: " + error.getMessage());
-//						}
+						try {
+						    if (conn != null) {
+						        conn.close();
+						    }
+						} catch (SQLException error) {
+						    System.out.println("Erro ao fechar a conexão com o banco de dados: " + error.getMessage());
+						}
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -141,6 +151,14 @@ public class Login extends JDialog {
 			}
 			{
 				JButton btnSair = new JButton("Sair");
+				btnSair.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						System.exit(0);
+					}
+				});
+				btnSair.setBackground(new Color(204, 102, 102));
+				btnSair.setFont(new Font("Verdana", Font.PLAIN, 11));
+				btnSair.setIcon(null);
 //				btnSair.addActionListener(new ActionListener() {
 //					public void actionPerformed(ActionEvent e) {
 //						setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
