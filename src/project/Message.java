@@ -40,7 +40,7 @@ public class Message extends JDialog {
 		
 		JLabel messageText = new JLabel(message);
 		messageText.setHorizontalAlignment(SwingConstants.CENTER);
-		messageText.setFont(new Font("Poppins Light", Font.BOLD, 22));
+		messageText.setFont(new Font("Poppins Black", Font.BOLD, 22));
 		messageText.setBounds(0, 0, 375, 62);
 		contentPanel.add(messageText);
 		{
