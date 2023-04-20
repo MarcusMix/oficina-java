@@ -39,7 +39,7 @@ public class RegisterUser extends JDialog {
 	 * Create the dialog.
 	 */
 	public RegisterUser() {
-		setBounds(100, 100, 451, 408);
+		setBounds(100, 100, 452, 364);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -92,7 +92,7 @@ public class RegisterUser extends JDialog {
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\vini6\\Documents\\ADS\\Desenvolvimento-desktop\\oficina\\images\\icons8-user-64.png"));
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\vini6\\Documents\\ADS\\Desenvolvimento-desktop\\oficina\\images\\user-icon.png"));
 		lblNewLabel.setBounds(0, 37, 430, 70);
 		contentPanel.add(lblNewLabel);
 		{
@@ -101,6 +101,11 @@ public class RegisterUser extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("Cadastrar");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						//querys
+					}
+				});
 				okButton.setFont(new Font("Poppins", Font.PLAIN, 11));
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
