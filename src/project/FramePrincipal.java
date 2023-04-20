@@ -53,24 +53,29 @@ public class FramePrincipal extends JFrame {
 		setJMenuBar(menuBar);
 		
 		JMenu menuCadastro = new JMenu("Cadastro");
+		menuCadastro.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
 		menuBar.add(menuCadastro);
 		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Usuários");
-		mntmNewMenuItem_2.addActionListener(new ActionListener() {
+		JMenuItem menuRegisterUser = new JMenuItem("Usuários");
+		menuRegisterUser.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
+		menuRegisterUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RegisterUser user = new RegisterUser();
 				user.setVisible(true);
 			}
 		});
-		menuCadastro.add(mntmNewMenuItem_2);
+		menuCadastro.add(menuRegisterUser);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Clientes");
-		menuCadastro.add(mntmNewMenuItem_1);
+		JMenuItem menuRegisterClient = new JMenuItem("Clientes");
+		menuRegisterClient.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
+		menuCadastro.add(menuRegisterClient);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Profissionais");
-		menuCadastro.add(mntmNewMenuItem);
+		JMenuItem menuRegisterPro = new JMenuItem("Profissionais");
+		menuRegisterPro.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
+		menuCadastro.add(menuRegisterPro);
 		
 		JMenu menuVendas = new JMenu("Movimento/Vendas");
+		menuVendas.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
 		menuVendas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -79,6 +84,7 @@ public class FramePrincipal extends JFrame {
 		menuBar.add(menuVendas);
 		
 		JMenu menuRelatorio = new JMenu("Relatórios");
+		menuRelatorio.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
 		menuRelatorio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -87,6 +93,7 @@ public class FramePrincipal extends JFrame {
 		menuBar.add(menuRelatorio);
 		
 		JMenu menuSobre = new JMenu("Sobre");
+		menuSobre.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
 		menuSobre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -98,14 +105,14 @@ public class FramePrincipal extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Oficina do Zé");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Ubuntu", Font.PLAIN, 20));
-		lblNewLabel.setBounds(0, 87, 434, 34);
+		lblNewLabel.setFont(new Font("Poppins ExtraBold", Font.PLAIN, 20));
+		lblNewLabel.setBounds(0, 22, 434, 34);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\vini6\\Documents\\ADS\\Desenvolvimento-desktop\\oficina\\images\\main-image.png"));
-		lblNewLabel_1.setBounds(0, 11, 434, 76);
+		lblNewLabel_1.setBounds(0, 52, 434, 76);
 		contentPane.add(lblNewLabel_1);
 	}
 }
