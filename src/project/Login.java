@@ -22,6 +22,7 @@ import java.io.IOException;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JPasswordField;
+import javax.swing.SwingConstants;
 
 public class Login extends JDialog {
 
@@ -55,7 +56,7 @@ public class Login extends JDialog {
 	}
 
 	public Login() {
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 395, 268);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -65,30 +66,39 @@ public class Login extends JDialog {
 		setTitle("Login");
 		
 		JLabel lblUsuario = new JLabel("Usuário");
-		lblUsuario.setFont(new Font("Fira Code Retina", Font.PLAIN, 11));
-		lblUsuario.setBounds(138, 52, 65, 14);
+		lblUsuario.setHorizontalAlignment(SwingConstants.CENTER);
+		lblUsuario.setFont(new Font("Poppins", Font.PLAIN, 14));
+		lblUsuario.setBounds(0, 52, 379, 20);
 		contentPanel.add(lblUsuario);
 		
 		JLabel lblSenha = new JLabel("Senha");
-		lblSenha.setFont(new Font("Fira Code Retina", Font.PLAIN, 11));
-		lblSenha.setBounds(138, 122, 65, 14);
+		lblSenha.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSenha.setFont(new Font("Poppins", Font.PLAIN, 14));
+		lblSenha.setBounds(0, 118, 379, 25);
 		contentPanel.add(lblSenha);
 		
 		inputUsuario = new JTextField();
-		inputUsuario.setBounds(138, 77, 125, 20);
+		inputUsuario.setFont(new Font("Poppins", Font.PLAIN, 14));
+		inputUsuario.setBounds(87, 72, 202, 25);
 		contentPanel.add(inputUsuario);
 		inputUsuario.setColumns(10);
 		
 		inputSenha = new JPasswordField();
-		inputSenha.setBounds(138, 147, 125, 20);
+		inputSenha.setBounds(87, 144, 202, 25);
 		contentPanel.add(inputSenha);
+		
+		JLabel lblNewLabel = new JLabel("Faça login no sistema");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Poppins ExtraBold", Font.PLAIN, 20));
+		lblNewLabel.setBounds(0, 11, 379, 30);
+		contentPanel.add(lblNewLabel);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.setFont(new Font("Verdana", Font.PLAIN, 11));
+				JButton okButton = new JButton("Entrar");
+				okButton.setFont(new Font("Poppins", Font.PLAIN, 11));
 				okButton.setSelectedIcon(null);
 				okButton.setBackground(new Color(102, 204, 51));
 				okButton.setIcon(null);
@@ -157,7 +167,7 @@ public class Login extends JDialog {
 					}
 				});
 				btnSair.setBackground(new Color(204, 102, 102));
-				btnSair.setFont(new Font("Verdana", Font.PLAIN, 11));
+				btnSair.setFont(new Font("Poppins", Font.PLAIN, 11));
 				btnSair.setIcon(null);
 //				btnSair.addActionListener(new ActionListener() {
 //					public void actionPerformed(ActionEvent e) {
