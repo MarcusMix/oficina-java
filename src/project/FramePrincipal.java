@@ -58,7 +58,8 @@ public class FramePrincipal extends JFrame {
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Usuários");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				RegisterUser user = new RegisterUser();
+				user.setVisible(true);
 			}
 		});
 		menuCadastro.add(mntmNewMenuItem_2);
