@@ -1,10 +1,10 @@
-CREATE TABLE usuarios (
-	id integer,
-    nome varchar(250),
-    usuario varchar(30),
-    senha varchar(6)
+create table usuarios (
+	id int not null auto_increment,
+	nome varchar(60),
+    usuario varchar(10) UNIQUE,
+    senha varchar(30),
+    primary key (id)
 );
 
+insert into usuarios (nome, usuario, senha )values ('Milena Cristina', 'milena', '123');
 
-insert into usuarios values (1, 'Milena Cristina', 'milena', '123');
-insert into usuarios values (2, 'Marcus Sandi', 'marcus', '123');
