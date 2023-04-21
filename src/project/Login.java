@@ -64,6 +64,7 @@ public class Login extends JDialog {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("Login");
+		//setFocusableWindowState(false);
 		
 		JLabel lblUsuario = new JLabel("Usuário");
 		lblUsuario.setHorizontalAlignment(SwingConstants.CENTER);
@@ -97,12 +98,12 @@ public class Login extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("Entrar");
-				okButton.setFont(new Font("Poppins", Font.PLAIN, 11));
-				okButton.setSelectedIcon(null);
-				okButton.setBackground(new Color(102, 204, 51));
-				okButton.setIcon(null);
-				okButton.addActionListener(new ActionListener() {
+				JButton btnEntrar = new JButton("Entrar");
+				btnEntrar.setFont(new Font("Poppins", Font.PLAIN, 11));
+				btnEntrar.setSelectedIcon(null);
+				btnEntrar.setBackground(new Color(102, 204, 51));
+				btnEntrar.setIcon(null);
+				btnEntrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						String DB_NAME = "ordemservico";
 						String DB_URL = "jdbc:mysql://localhost/" + DB_NAME;
@@ -116,15 +117,13 @@ public class Login extends JDialog {
 						ResultSet rs;
 						
 						String usuario = null;
-						boolean usuarioBol;
 						
 						//criar conexao
 						try {
 							conn = DriverManager.getConnection(DB_URL, USER, PASS);
 							stmt =  conn.prepareStatement(QUERY);
 						    rs = stmt.executeQuery(QUERY);
-//							System.out.println(QUERY);
-
+						    
 							while (rs.next()) {
 								 usuario = rs.getString("usuario");
 								
@@ -136,14 +135,12 @@ public class Login extends JDialog {
 							}
 							//usuário não existe
 							if(usuario == null) {
-								handleWindowMessage("Usuário ou senha incorretos!");
+								handleWindowMessage("Usuário ou senha incorreto!");
 							}
 
 						} catch (SQLException erro) {
 							erro.printStackTrace();
 						}
-						
-						
 						
 						//fechar conexao
 						try {
@@ -155,9 +152,9 @@ public class Login extends JDialog {
 						}
 					}
 				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				btnEntrar.setActionCommand("OK");
+				buttonPane.add(btnEntrar);
+				getRootPane().setDefaultButton(btnEntrar);
 			}
 			{
 				JButton btnSair = new JButton("Sair");
