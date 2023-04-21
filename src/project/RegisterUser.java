@@ -12,6 +12,11 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 
@@ -34,6 +39,20 @@ public class RegisterUser extends JDialog {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	//message
+		public void handleWindowMessage(String text) {
+			Message message = new Message(text);
+			message.setLocationRelativeTo(null);
+			message.setVisible(true);
+		}
+		
+		public void handleWindowMessageSucess(String text) {
+			MessageSucess message = new MessageSucess(text);
+			message.setLocationRelativeTo(null);
+			message.setVisible(true);
+		}
 
 	/**
 	 * Create the dialog.
@@ -46,6 +65,8 @@ public class RegisterUser extends JDialog {
 		contentPanel.setLayout(null);
 		setTitle("Cadastrar novo usuário");
 		setLocationRelativeTo(null);
+		
+		
 		{
 			JLabel lblNewUser = new JLabel("Cadastrar usuário");
 			lblNewUser.setHorizontalAlignment(SwingConstants.CENTER);
@@ -104,22 +125,82 @@ public class RegisterUser extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						//querys
+						String DB_NAME = "ordemservico";
+						String DB_URL = "jdbc:mysql://localhost/" + DB_NAME;
+						String USER = "root";
+						String PASS = "admin";
+						
+						String QUERY = "INSERT INTO teste (nome, user, senha) VALUES('" + inputNome.getText() +"', '" + inputUser.getText() + "', '" + inputSenha.getText() +"')";
+						
+						Connection conn = null;
+						PreparedStatement stmt;
+									
+						if(inputNome.getText().isBlank()) {
+							handleWindowMessage("Nome em branco!");
+							return;
+						} else if (inputUser.getText().isBlank()) {
+							handleWindowMessage("Usuário em branco!");
+							return;
+						} else if (inputSenha.getText().isBlank()) {
+							handleWindowMessage("Senha em branco!");
+							return;
+						}
+
+						//criar conexao
+						try {
+							conn = DriverManager.getConnection(DB_URL, USER, PASS);
+							stmt =  conn.prepareStatement(QUERY);
+						   
+//						    if(Integer.parseInt(QUERY) == 0) {
+//						    	handleWindowMessage("Erro ao criar conta!");
+//						    } else {
+//						    	handleWindowMessage("Erro ao criar conta!");
+//						    	return;
+//						    }
+//							
+						    int result = stmt.executeUpdate(QUERY);
+						    
+						    if(result == 0) {
+						    	handleWindowMessage("Erro ao criar conta!");
+						    } else {
+						    	handleWindowMessageSucess("Conta criada com sucesso!");
+						    	inputSenha.setText("");
+						    	inputUser.setText("");
+						    	inputNome.setText("");
+						    }
+							
+
+						} catch (SQLException erro) {
+							erro.printStackTrace();
+						}
+						
+						//fechar conexao
+//						try {
+//						    if (conn != null) {
+//						        conn.close();
+//						    }
+//						} catch (SQLException error) {
+//						    System.out.println("Erro ao fechar a conexão com o banco de dados: " + error.getMessage());
+//						}
 					}
-				});
+						
+					}
+				);
 				okButton.setFont(new Font("Poppins", Font.PLAIN, 11));
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancelar");
-				cancelButton.setFont(new Font("Poppins", Font.PLAIN, 11));
-				cancelButton.addActionListener(new ActionListener() {
+				JButton btnVoltar = new JButton("Voltar");
+				btnVoltar.setFont(new Font("Poppins", Font.PLAIN, 11));
+				btnVoltar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						dispose();
 					}
 				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
+				btnVoltar.setActionCommand("Cancel");
+				buttonPane.add(btnVoltar);
 			}
 		}
 	}
