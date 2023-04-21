@@ -130,10 +130,9 @@ public class RegisterUser extends JDialog {
 						String USER = "root";
 						String PASS = "admin";
 						
-						String QUERY = "INSERT INTO teste (nome, user, senha) VALUES('" + inputNome.getText() +"', '" + inputUser.getText() + "', '" + inputSenha.getText() +"')";
-						
-						Connection conn = null;
-						PreparedStatement stmt;
+						//registrar usuário
+						String QUERY = "INSERT INTO usuarios (nome, usuario, senha) "
+								+ "VALUES ('" + inputNome.getText() +"', '" + inputUser.getText() + "', '" + inputSenha.getText() +"')";
 									
 						if(inputNome.getText().isBlank()) {
 							handleWindowMessage("Nome em branco!");
@@ -148,18 +147,11 @@ public class RegisterUser extends JDialog {
 
 						//criar conexao
 						try {
-							conn = DriverManager.getConnection(DB_URL, USER, PASS);
-							stmt =  conn.prepareStatement(QUERY);
-						   
-//						    if(Integer.parseInt(QUERY) == 0) {
-//						    	handleWindowMessage("Erro ao criar conta!");
-//						    } else {
-//						    	handleWindowMessage("Erro ao criar conta!");
-//						    	return;
-//						    }
-//							
-						    int result = stmt.executeUpdate(QUERY);
-						    
+							Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+							PreparedStatement stmt =  conn.prepareStatement(QUERY);
+
+							int result = stmt.executeUpdate(QUERY);
+
 						    if(result == 0) {
 						    	handleWindowMessage("Erro ao criar conta!");
 						    } else {
