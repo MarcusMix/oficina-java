@@ -92,6 +92,10 @@ public class FramePrincipal extends JFrame {
 		});
 		menuBar.add(menuRelatorio);
 		
+		JMenuItem menuRelVendas = new JMenuItem("Vendas");
+		menuRelVendas.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
+		menuRelatorio.add(menuRelVendas);
+		
 		JMenu menuSobre = new JMenu("Sobre");
 		menuSobre.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
 		menuSobre.addActionListener(new ActionListener() {
