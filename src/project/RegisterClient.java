@@ -15,11 +15,9 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
-import javax.swing.JFormattedTextField;
 import javax.swing.JTextArea;
 
 public class RegisterClient extends JDialog {
@@ -35,7 +33,7 @@ public class RegisterClient extends JDialog {
 	private JTextField inputEstado;
 	private JTextField inputCidade;
 	private JTextField inputRua;
-	private JTextField textField;
+	private JTextField inputBairro;
 	private JTextField inputCEP;
 
 	/**
@@ -212,11 +210,11 @@ public class RegisterClient extends JDialog {
 		inputRua.setBounds(116, 411, 488, 25);
 		contentPanel.add(inputRua);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Poppins", Font.PLAIN, 14));
-		textField.setColumns(10);
-		textField.setBounds(116, 468, 226, 25);
-		contentPanel.add(textField);
+		inputBairro = new JTextField();
+		inputBairro.setFont(new Font("Poppins", Font.PLAIN, 14));
+		inputBairro.setColumns(10);
+		inputBairro.setBounds(116, 468, 226, 25);
+		contentPanel.add(inputBairro);
 		
 		JLabel lblBairro = new JLabel("Bairro");
 		lblBairro.setHorizontalAlignment(SwingConstants.CENTER);
@@ -237,9 +235,10 @@ public class RegisterClient extends JDialog {
 		contentPanel.add(inputCEP);
 		
 		JTextArea inputOBS = new JTextArea();
+		inputOBS.setFont(new Font("Poppins", Font.PLAIN, 13));
 		inputOBS.setLineWrap(true);
 		inputOBS.setWrapStyleWord(true);
-		inputOBS.setBounds(116, 536, 488, 82);
+		inputOBS.setBounds(116, 531, 488, 82);
 		contentPanel.add(inputOBS);
 		
 		JLabel lblOBS = new JLabel("Observações");
@@ -262,17 +261,52 @@ public class RegisterClient extends JDialog {
 						String PASS = "admin";
 						
 						//registrar usuário
-						String QUERY = "INSERT INTO usuarios (nome, usuario, senha) "
-								+ "VALUES ('" + inputNome.getText() +"', '" + inputRG.getText() + "', '" + inputCPF.getText() +"')";
+						String QUERY = "INSERT INTO clientes (nome, rg, cpf, rua, bairro, cidade, estado, cep, email, fone1, fone2, obs, nascimento) "
+								+ "VALUES ('" + inputNome.getText() +"', '" + inputRG.getText() + "', '" + inputCPF.getText() +"', "
+								+ "'" + inputRua.getText() + "', '" + inputBairro.getText() + "', '" + inputCidade.getText() + "'"
+								+ ", '" + inputEstado.getText() + "', '" + inputCEP.getText() + "', '" + inputEmail.getText() + "'"
+								+ ", '" + inputTelefone1.getText() + "', '" + inputTelefone2.getText() + "'"
+								+ ", '" + inputOBS.getText() + "', '" + inputNascimento.getText() + "' )";
+
 									
 						if(inputNome.getText().isBlank()) {
 							handleWindowMessage("Nome em branco!");
 							return;
 						} else if (inputRG.getText().isBlank()) {
-							handleWindowMessage("Usuário em branco!");
+							handleWindowMessage("RG em branco!");
 							return;
 						} else if (inputCPF.getText().isBlank()) {
-							handleWindowMessage("Senha em branco!");
+							handleWindowMessage("CPF em branco!");
+							return;
+						} else if (inputNascimento.getText().isBlank()) {
+							handleWindowMessage("Data de Nascimento em branco!");
+							return;
+						} else if (inputEmail.getText().isBlank()) {
+							handleWindowMessage("E-mail em branco!");
+							return;
+						} else if (inputTelefone1.getText().isBlank()) {
+							handleWindowMessage("Telefone 1 em branco!");
+							return;
+						} else if (inputTelefone2.getText().isBlank()) {
+							handleWindowMessage("Telefone2 em branco!");
+							return;
+						} else if (inputEstado.getText().isBlank()) {
+							handleWindowMessage("Estado em branco!");
+							return;
+						} else if (inputCidade.getText().isBlank()) {
+							handleWindowMessage("Cidade em branco!");
+							return;
+						} else if (inputRua.getText().isBlank()) {
+							handleWindowMessage("Rua em branco!");
+							return;
+						} else if (inputBairro.getText().isBlank()) {
+							handleWindowMessage("Bairro em branco!");
+							return;
+						} else if (inputCEP.getText().isBlank()) {
+							handleWindowMessage("CEP em branco!");
+							return;
+						} else if (inputOBS.getText().isBlank()) {
+							handleWindowMessage("Observação em branco!");
 							return;
 						}
 
@@ -284,12 +318,23 @@ public class RegisterClient extends JDialog {
 							int result = stmt.executeUpdate(QUERY);
 
 						    if(result == 0) {
-						    	handleWindowMessage("Erro ao criar conta!");
+						    	handleWindowMessage("Erro cadastrar cliente!");
 						    } else {
-						    	handleWindowMessageSucess("Conta criada com sucesso!");
+						    	handleWindowMessageSucess("Cliente cadastrado com sucesso!");
 						    	inputCPF.setText("");
 						    	inputRG.setText("");
 						    	inputNome.setText("");
+						    	inputRG.setText("");
+						    	inputEmail.setText("");
+						    	inputNascimento.setText("");
+						    	inputOBS.setText("");
+						    	inputTelefone1.setText("");
+						    	inputTelefone2.setText("");
+						    	inputEstado.setText("");
+						    	inputCidade.setText("");
+						    	inputBairro.setText("");
+						    	inputRua.setText("");
+						    	inputCEP.setText("");
 						    }
 							
 
@@ -297,14 +342,6 @@ public class RegisterClient extends JDialog {
 							erro.printStackTrace();
 						}
 						
-						//fechar conexao
-//						try {
-//						    if (conn != null) {
-//						        conn.close();
-//						    }
-//						} catch (SQLException error) {
-//						    System.out.println("Erro ao fechar a conexão com o banco de dados: " + error.getMessage());
-//						}
 					}
 						
 					}
