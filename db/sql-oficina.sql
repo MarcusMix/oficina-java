@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS `clientes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `clientes` (
-  `id` int(11) DEFAULT NULL,
+  `id` int not null auto_increment,
   `nome` varchar(60) DEFAULT NULL,
   `rg` varchar(25) DEFAULT NULL,
   `cpf` varchar(25) DEFAULT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE `clientes` (
   `fone2` varchar(15) DEFAULT NULL,
   `obs` varchar(1500) DEFAULT NULL,
   `nascimento` date DEFAULT NULL,
-  `datacad` date DEFAULT NULL,
+  `datacad` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   KEY `clientes_id_IDX` (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
