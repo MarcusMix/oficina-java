@@ -67,6 +67,12 @@ public class FramePrincipal extends JFrame {
 		menuCadastro.add(menuRegisterUser);
 		
 		JMenuItem menuRegisterClient = new JMenuItem("Clientes");
+		menuRegisterClient.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegisterClient client = new RegisterClient();
+				client.setVisible(true);
+			}
+		});
 		menuRegisterClient.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
 		menuCadastro.add(menuRegisterClient);
 		
