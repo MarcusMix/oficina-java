@@ -113,8 +113,8 @@ public class RegisterUser extends JDialog {
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\vini6\\Documents\\ADS\\Desenvolvimento-desktop\\oficina\\images\\user-icon.png"));
-		lblNewLabel.setBounds(0, 37, 430, 70);
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\vini6\\Documents\\ADS\\Desenvolvimento-desktop\\oficina\\images\\user-color.png"));
+		lblNewLabel.setBounds(10, 37, 420, 70);
 		contentPanel.add(lblNewLabel);
 		{
 			JPanel buttonPane = new JPanel();
