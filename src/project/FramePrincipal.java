@@ -77,6 +77,12 @@ public class FramePrincipal extends JFrame {
 		menuCadastro.add(menuRegisterClient);
 		
 		JMenuItem menuRegisterPro = new JMenuItem("Profissionais");
+		menuRegisterPro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegisterLaborer laborer = new RegisterLaborer();
+				laborer.setVisible(true);
+			}
+		});
 		menuRegisterPro.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
 		menuCadastro.add(menuRegisterPro);
 		
@@ -101,6 +107,15 @@ public class FramePrincipal extends JFrame {
 		JMenuItem menuRelVendas = new JMenuItem("Vendas");
 		menuRelVendas.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
 		menuRelatorio.add(menuRelVendas);
+		
+		JMenuItem menuRelClientes = new JMenuItem("Clientes");
+		menuRelClientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		menuRelClientes.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
+		menuRelatorio.add(menuRelClientes);
 		
 		JMenu menuSobre = new JMenu("Sobre");
 		menuSobre.setFont(new Font("Poppins SemiBold", Font.PLAIN, 12));
