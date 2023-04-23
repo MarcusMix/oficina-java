@@ -56,7 +56,7 @@ public class Login extends JDialog {
 	}
 
 	public Login() {
-		setBounds(100, 100, 395, 268);
+		setBounds(100, 100, 395, 320);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -69,23 +69,23 @@ public class Login extends JDialog {
 		JLabel lblUsuario = new JLabel("Usuário");
 		lblUsuario.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUsuario.setFont(new Font("Poppins", Font.PLAIN, 14));
-		lblUsuario.setBounds(0, 52, 379, 20);
+		lblUsuario.setBounds(0, 116, 379, 20);
 		contentPanel.add(lblUsuario);
 		
 		JLabel lblSenha = new JLabel("Senha");
 		lblSenha.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSenha.setFont(new Font("Poppins", Font.PLAIN, 14));
-		lblSenha.setBounds(0, 118, 379, 25);
+		lblSenha.setBounds(0, 173, 379, 25);
 		contentPanel.add(lblSenha);
 		
 		inputUsuario = new JTextField();
 		inputUsuario.setFont(new Font("Poppins", Font.PLAIN, 14));
-		inputUsuario.setBounds(87, 72, 202, 25);
+		inputUsuario.setBounds(87, 136, 202, 25);
 		contentPanel.add(inputUsuario);
 		inputUsuario.setColumns(10);
 		
 		inputSenha = new JPasswordField();
-		inputSenha.setBounds(87, 144, 202, 25);
+		inputSenha.setBounds(87, 199, 202, 25);
 		contentPanel.add(inputSenha);
 		
 		JLabel lblNewLabel = new JLabel("Faça login no sistema");
@@ -93,6 +93,12 @@ public class Login extends JDialog {
 		lblNewLabel.setFont(new Font("Poppins ExtraBold", Font.PLAIN, 20));
 		lblNewLabel.setBounds(0, 11, 379, 30);
 		contentPanel.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\vini6\\Documents\\ADS\\Desenvolvimento-desktop\\oficina\\images\\user-login.png"));
+		lblNewLabel_1.setBounds(0, 52, 379, 53);
+		contentPanel.add(lblNewLabel_1);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
