@@ -28,7 +28,7 @@ CREATE TABLE `clientes` (
   `fone2` varchar(15) DEFAULT NULL,
   `obs` varchar(1500) DEFAULT NULL,
   `nascimento` date DEFAULT NULL,
-  `datacad` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `datacadastro` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   KEY `clientes_id_IDX` (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -79,7 +79,7 @@ DROP TABLE IF EXISTS `profissionais`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `profissionais` (
-  `id` int(11) DEFAULT NULL,
+  `id` int not null auto_increment,
   `nome` varchar(60) DEFAULT NULL,
   `RG` varchar(25) DEFAULT NULL,
   `cpf` varchar(25) DEFAULT NULL,
@@ -92,6 +92,7 @@ CREATE TABLE `profissionais` (
   `fone1` varchar(25) DEFAULT NULL,
   `fone2` varchar(25) DEFAULT NULL,
   `cargo` varchar(50) DEFAULT NULL,
+  `nascimento` date default null,
   `admissao` date DEFAULT NULL,
   `funcao` varchar(25) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
