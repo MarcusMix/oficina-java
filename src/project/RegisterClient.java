@@ -4,9 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -16,6 +19,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
@@ -30,7 +34,7 @@ public class RegisterClient extends JDialog {
 	private JTextField inputEmail;
 	private JTextField inputTelefone1;
 	private JTextField inputTelefone2;
-	private JTextField inputEstado;
+//	private JTextField inputEstado;
 	private JTextField inputCidade;
 	private JTextField inputRua;
 	private JTextField inputBairro;
@@ -74,6 +78,11 @@ public class RegisterClient extends JDialog {
 		contentPanel.setLayout(null);
 		setTitle("Cadastrar novo cliente");
 		setLocationRelativeTo(null);
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\vini6\\Documents\\ADS\\Desenvolvimento-desktop\\oficina\\images\\client-color.png"));
+		lblNewLabel.setBounds(0, 37, 561, 70);
+		contentPanel.add(lblNewLabel);
 		
 		
 		{
@@ -114,17 +123,18 @@ public class RegisterClient extends JDialog {
 		lblCPF.setBounds(302, 163, 226, 22);
 		contentPanel.add(lblCPF);
 		
-		inputCPF = new JTextField();
+		//cpf
+		try {
+			inputCPF = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+	    } catch (ParseException e) {
+	      e.printStackTrace();
+	    }
+		
 		inputCPF.setFont(new Font("Poppins", Font.PLAIN, 14));
 		inputCPF.setColumns(10);
 		inputCPF.setBounds(302, 184, 226, 25);
 		contentPanel.add(inputCPF);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\vini6\\Documents\\ADS\\Desenvolvimento-desktop\\oficina\\images\\client-color.png"));
-		lblNewLabel.setBounds(0, 37, 561, 70);
-		contentPanel.add(lblNewLabel);
 		
 		inputNascimento = new JTextField();
 		inputNascimento.setFont(new Font("Poppins", Font.PLAIN, 14));
@@ -150,19 +160,31 @@ public class RegisterClient extends JDialog {
 		lblEmail.setBounds(302, 218, 226, 22);
 		contentPanel.add(lblEmail);
 		
+		//telefone 1
 		JLabel lblTel1 = new JLabel("Telefone 1");
 		lblTel1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTel1.setFont(new Font("Poppins", Font.PLAIN, 14));
 		lblTel1.setBounds(40, 275, 226, 22);
 		contentPanel.add(lblTel1);
-		
-		inputTelefone1 = new JTextField();
-		inputTelefone1.setFont(new Font("Poppins", Font.PLAIN, 14));
+	
+		    try {
+		    	inputTelefone1 = new JFormattedTextField(new MaskFormatter("(##) #####-####"));
+		    } catch (ParseException e) {
+		      e.printStackTrace();
+		    }
+		    
+	    inputTelefone1.setFont(new Font("Poppins", Font.PLAIN, 14));
 		inputTelefone1.setColumns(10);
 		inputTelefone1.setBounds(40, 296, 226, 25);
 		contentPanel.add(inputTelefone1);
 		
-		inputTelefone2 = new JTextField();
+		//telefone 2
+		    try {
+		    	inputTelefone2 = new JFormattedTextField(new MaskFormatter("(##) #####-####"));
+		    } catch (ParseException e) {
+		      e.printStackTrace();
+		    }
+	    
 		inputTelefone2.setFont(new Font("Poppins", Font.PLAIN, 14));
 		inputTelefone2.setColumns(10);
 		inputTelefone2.setBounds(302, 296, 226, 25);
@@ -174,17 +196,22 @@ public class RegisterClient extends JDialog {
 		lblTel2.setBounds(302, 275, 226, 22);
 		contentPanel.add(lblTel2);
 		
-		inputEstado = new JTextField();
-		inputEstado.setFont(new Font("Poppins", Font.PLAIN, 14));
-		inputEstado.setColumns(10);
-		inputEstado.setBounds(40, 353, 226, 25);
-		contentPanel.add(inputEstado);
-		
 		JLabel lblEstado = new JLabel("Estado");
 		lblEstado.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEstado.setFont(new Font("Poppins", Font.PLAIN, 14));
 		lblEstado.setBounds(40, 332, 226, 22);
 		contentPanel.add(lblEstado);
+		
+		String[] estados = {"Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", 
+				"Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais",
+				"Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", 
+				"Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"};
+
+		JComboBox comboBoxEstado = new JComboBox(estados);
+		comboBoxEstado.setSelectedIndex(23);
+		comboBoxEstado.setFont(new Font("Poppins", Font.PLAIN, 11));
+		comboBoxEstado.setBounds(40, 355, 226, 22);
+		contentPanel.add(comboBoxEstado);
 		
 		inputCidade = new JTextField();
 		inputCidade.setFont(new Font("Poppins", Font.PLAIN, 14));
@@ -222,13 +249,20 @@ public class RegisterClient extends JDialog {
 		lblBairro.setBounds(40, 446, 226, 22);
 		contentPanel.add(lblBairro);
 		
+		
+		
 		JLabel lvlCEP = new JLabel("CEP");
 		lvlCEP.setHorizontalAlignment(SwingConstants.CENTER);
 		lvlCEP.setFont(new Font("Poppins", Font.PLAIN, 14));
 		lvlCEP.setBounds(302, 446, 226, 22);
 		contentPanel.add(lvlCEP);
 		
-		inputCEP = new JTextField();
+		try {
+			inputCEP = new JFormattedTextField(new MaskFormatter("#####-###"));
+	    } catch (ParseException e) {
+	      e.printStackTrace();
+	    }
+		
 		inputCEP.setFont(new Font("Poppins", Font.PLAIN, 14));
 		inputCEP.setColumns(10);
 		inputCEP.setBounds(302, 467, 226, 25);
@@ -264,7 +298,7 @@ public class RegisterClient extends JDialog {
 						String QUERY = "INSERT INTO clientes (nome, rg, cpf, rua, bairro, cidade, estado, cep, email, fone1, fone2, obs, nascimento) "
 								+ "VALUES ('" + inputNome.getText() +"', '" + inputRG.getText() + "', '" + inputCPF.getText() +"', "
 								+ "'" + inputRua.getText() + "', '" + inputBairro.getText() + "', '" + inputCidade.getText() + "'"
-								+ ", '" + inputEstado.getText() + "', '" + inputCEP.getText() + "', '" + inputEmail.getText() + "'"
+								+ ", '" + comboBoxEstado.getSelectedItem() + "', '" + inputCEP.getText() + "', '" + inputEmail.getText() + "'"
 								+ ", '" + inputTelefone1.getText() + "', '" + inputTelefone2.getText() + "'"
 								+ ", '" + inputOBS.getText() + "', '" + inputNascimento.getText() + "' )";
 
@@ -289,9 +323,6 @@ public class RegisterClient extends JDialog {
 							return;
 						} else if (inputTelefone2.getText().isBlank()) {
 							handleWindowMessage("Telefone2 em branco!");
-							return;
-						} else if (inputEstado.getText().isBlank()) {
-							handleWindowMessage("Estado em branco!");
 							return;
 						} else if (inputCidade.getText().isBlank()) {
 							handleWindowMessage("Cidade em branco!");
@@ -330,7 +361,6 @@ public class RegisterClient extends JDialog {
 						    	inputOBS.setText("");
 						    	inputTelefone1.setText("");
 						    	inputTelefone2.setText("");
-						    	inputEstado.setText("");
 						    	inputCidade.setText("");
 						    	inputBairro.setText("");
 						    	inputRua.setText("");
