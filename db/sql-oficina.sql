@@ -21,7 +21,7 @@ CREATE TABLE `clientes` (
   `rua` varchar(100) DEFAULT NULL,
   `bairro` varchar(100) DEFAULT NULL,
   `cidade` varchar(60) DEFAULT NULL,
-  `estado` varchar(2) DEFAULT NULL,
+  `estado` varchar(40) DEFAULT NULL,
   `cep` varchar(15) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `fone1` varchar(15) DEFAULT NULL,
@@ -86,7 +86,7 @@ CREATE TABLE `profissionais` (
   `rua` varchar(50) DEFAULT NULL,
   `bairro` varchar(25) DEFAULT NULL,
   `cidade` varchar(30) DEFAULT NULL,
-  `estado` varchar(2) DEFAULT NULL,
+  `estado` varchar(40) DEFAULT NULL,
   `cep` varchar(25) DEFAULT NULL,
   `email` varchar(30) DEFAULT NULL,
   `fone1` varchar(25) DEFAULT NULL,
@@ -94,7 +94,8 @@ CREATE TABLE `profissionais` (
   `cargo` varchar(50) DEFAULT NULL,
   `nascimento` date default null,
   `admissao` date DEFAULT NULL,
-  `funcao` varchar(25) DEFAULT NULL
+  `funcao` varchar(25) DEFAULT NULL,
+  primary key (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
