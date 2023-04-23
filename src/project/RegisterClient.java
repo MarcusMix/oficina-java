@@ -72,7 +72,7 @@ public class RegisterClient extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		setTitle("Cadastrar novo usuário");
+		setTitle("Cadastrar novo cliente");
 		setLocationRelativeTo(null);
 		
 		
@@ -122,7 +122,7 @@ public class RegisterClient extends JDialog {
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\vini6\\Documents\\ADS\\Desenvolvimento-desktop\\oficina\\images\\user-icon.png"));
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\vini6\\Documents\\ADS\\Desenvolvimento-desktop\\oficina\\images\\client-color.png"));
 		lblNewLabel.setBounds(0, 37, 561, 70);
 		contentPanel.add(lblNewLabel);
 		
