@@ -111,7 +111,8 @@ public class FramePrincipal extends JFrame {
 		JMenuItem menuRelClientes = new JMenuItem("Clientes");
 		menuRelClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				ReportClients reportClients = new ReportClients();
+				reportClients.setVisible(true);
 			}
 		});
 		menuRelClientes.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
@@ -129,11 +130,11 @@ public class FramePrincipal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Oficina do Zé");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Poppins ExtraBold", Font.PLAIN, 20));
-		lblNewLabel.setBounds(0, 22, 434, 34);
-		contentPane.add(lblNewLabel);
+		JLabel title = new JLabel("Oficina do Zé");
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		title.setFont(new Font("Poppins ExtraBold", Font.PLAIN, 20));
+		title.setBounds(0, 22, 434, 34);
+		contentPane.add(title);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
