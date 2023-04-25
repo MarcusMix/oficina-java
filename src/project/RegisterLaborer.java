@@ -88,11 +88,11 @@ public class RegisterLaborer extends JDialog {
 		contentPanel.add(lblNewLabel);
 		
 		{
-			JLabel lblNewUser = new JLabel("Cadastrar profissional");
-			lblNewUser.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewUser.setFont(new Font("Poppins ExtraBold", Font.PLAIN, 20));
-			lblNewUser.setBounds(0, 0, 561, 51);
-			contentPanel.add(lblNewUser);
+			JLabel title = new JLabel("Cadastrar profissional");
+			title.setHorizontalAlignment(SwingConstants.CENTER);
+			title.setFont(new Font("Poppins ExtraBold", Font.PLAIN, 20));
+			title.setBounds(0, 0, 561, 51);
+			contentPanel.add(title);
 		}
 		
 		JLabel lblNomeCompleto = new JLabel("Nome completo");
