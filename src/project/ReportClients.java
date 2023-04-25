@@ -28,12 +28,7 @@ import javax.swing.JTextPane;
 public class ReportClients extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTable table;
-	private JTable tabela;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		try {
 			ReportClients dialog = new ReportClients();
@@ -44,9 +39,6 @@ public class ReportClients extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public ReportClients() {
 		setBounds(100, 100, 521, 495);
 		getContentPane().setLayout(new BorderLayout());
@@ -63,7 +55,8 @@ public class ReportClients extends JDialog {
 		
 		String resultados = "";
 		
-		//querys
+		
+				//querys
 				String DB_NAME = "ordemservico";
 				String DB_URL = "jdbc:mysql://localhost/" + DB_NAME;
 				String USER = "root";
@@ -75,14 +68,14 @@ public class ReportClients extends JDialog {
 			      Statement comando = conexao.createStatement();
 			      ResultSet resultado = comando.executeQuery(sql);
 			      int i = 1;
-
+			      
 			      while (resultado.next()) {
-			        String nome = resultado.getString("nome").toUpperCase();
-			        String cpf = resultado.getString("cpf").toUpperCase();
-		            String email = resultado.getString("email").toUpperCase();
-		            resultados +=  (i++) +"- " + nome + " " + cpf + " " + email + "\n\n";
-		        	labelDataClients.setText(resultados);
-//			        System.out.println(nome + cpf + email);
+			    	  String nome = resultado.getString("nome").toUpperCase();
+			    	  String cpf = resultado.getString("cpf").toUpperCase();
+			    	  String email = resultado.getString("email").toUpperCase();
+			    	  resultados +=  (i++) +"- " + nome + " " + cpf + " " + email + "\n\n";
+			    	  labelDataClients.setText(resultados);
+//			    	  System.out.println(nome + cpf + email);
 			      }
 			    } catch (SQLException e) {
 			      System.err.println("Erro ao conectar ao banco de dados: " + e.getMessage());
@@ -95,27 +88,21 @@ public class ReportClients extends JDialog {
 			lblRelatorioDeClientes.setBounds(10, 11, 485, 51);
 			contentPanel.add(lblRelatorioDeClientes);
 		}
-		
-	
-	
+
+		JPanel buttonPane = new JPanel();
+		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
+			JButton okButton = new JButton("OK");
+			okButton.setActionCommand("OK");
+			buttonPane.add(okButton);
+			getRootPane().setDefaultButton(okButton);
 		}
-		
-		
-		
+//		{
+//			JButton cancelButton = new JButton("Cancel");
+//			cancelButton.setActionCommand("Cancel");
+//			buttonPane.add(cancelButton);
+//		}
+
 	}
 }
