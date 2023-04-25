@@ -88,11 +88,11 @@ public class Login extends JDialog {
 		inputSenha.setBounds(87, 199, 202, 25);
 		contentPanel.add(inputSenha);
 		
-		JLabel lblNewLabel = new JLabel("Faça login no sistema");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Poppins ExtraBold", Font.PLAIN, 20));
-		lblNewLabel.setBounds(0, 11, 379, 30);
-		contentPanel.add(lblNewLabel);
+		JLabel title = new JLabel("Faça login no sistema");
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		title.setFont(new Font("Poppins ExtraBold", Font.PLAIN, 20));
+		title.setBounds(0, 11, 379, 30);
+		contentPanel.add(title);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
