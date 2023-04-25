@@ -46,41 +46,39 @@ public class ReportClients extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		setLocationRelativeTo(null);
-		
+
 		JTextPane labelDataClients = new JTextPane();
 		labelDataClients.setEditable(false);
 		labelDataClients.setFont(new Font("Arial", Font.BOLD, 12));
 		labelDataClients.setBounds(51, 95, 413, 189);
 		contentPanel.add(labelDataClients);
-		
-		String resultados = "";
-		
-		
-				//querys
-				String DB_NAME = "ordemservico";
-				String DB_URL = "jdbc:mysql://localhost/" + DB_NAME;
-				String USER = "root";
-				String PASS = "admin";
-			    try (Connection conexao = DriverManager.getConnection(DB_URL, USER, PASS)) {
-			    	
-			      String sql = "SELECT * FROM clientes";
-			      
-			      Statement comando = conexao.createStatement();
-			      ResultSet resultado = comando.executeQuery(sql);
-			      int i = 1;
-			      
-			      while (resultado.next()) {
-			    	  String nome = resultado.getString("nome").toUpperCase();
-			    	  String cpf = resultado.getString("cpf").toUpperCase();
-			    	  String email = resultado.getString("email").toUpperCase();
-			    	  resultados +=  (i++) +"- " + nome + " " + cpf + " " + email + "\n\n";
-			    	  labelDataClients.setText(resultados);
-//			    	  System.out.println(nome + cpf + email);
-			      }
-			    } catch (SQLException e) {
-			      System.err.println("Erro ao conectar ao banco de dados: " + e.getMessage());
-			    }
-		
+
+		// querys
+		String DB_NAME = "ordemservico";
+		String DB_URL = "jdbc:mysql://localhost/" + DB_NAME;
+		String USER = "root";
+		String PASS = "admin";
+		String dataClients = "";
+
+		try {
+			String sql = "SELECT * FROM clientes";
+			Connection conexao = DriverManager.getConnection(DB_URL, USER, PASS);
+			Statement comando = conexao.createStatement();
+			ResultSet resultado = comando.executeQuery(sql);
+			
+			int i = 1;
+
+			while (resultado.next()) {
+				String clientName = resultado.getString("nome").toUpperCase();
+				String clientCpf = resultado.getString("cpf").toUpperCase();
+				String clientEmail = resultado.getString("email").toUpperCase();
+				dataClients += (i++) + "- " + clientName + " " + clientCpf + " " + clientEmail + "\n\n";
+				labelDataClients.setText(dataClients);
+			}
+		} catch (SQLException e) {
+			System.err.println("Erro ao conectar ao banco de dados: " + e.getMessage());
+		}
+
 		{
 			JLabel lblRelatorioDeClientes = new JLabel("Relatorio de Clientes");
 			lblRelatorioDeClientes.setHorizontalAlignment(SwingConstants.CENTER);
