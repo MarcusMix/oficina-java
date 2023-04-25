@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
@@ -29,10 +30,8 @@ public class Login extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField inputUsuario;
 	private JPasswordField inputSenha;
+	public boolean logado = false;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		try {
 			Login dialog = new Login();
@@ -54,8 +53,20 @@ public class Login extends JDialog {
 		message.setLocationRelativeTo(null);
 		message.setVisible(true);
 	}
+	
+	//is user login 
+	public boolean userLoged(boolean logado) {
+		if (logado == true) {
+			System.out.println("Logado!");
+			return true;
+		} else {
+			System.out.println("Erro!");
+			return false;
+		}
+	}
 
 	public Login() {
+//		setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
 		setBounds(100, 100, 395, 320);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -64,7 +75,7 @@ public class Login extends JDialog {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("Login");
-		//setFocusableWindowState(false);
+		setModal(true);
 		
 		JLabel lblUsuario = new JLabel("Usuário");
 		lblUsuario.setHorizontalAlignment(SwingConstants.CENTER);
@@ -94,11 +105,11 @@ public class Login extends JDialog {
 		title.setBounds(0, 11, 379, 30);
 		contentPanel.add(title);
 		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\vini6\\Documents\\ADS\\Desenvolvimento-desktop\\oficina\\images\\user-login.png"));
-		lblNewLabel_1.setBounds(0, 52, 379, 53);
-		contentPanel.add(lblNewLabel_1);
+		JLabel imageIcon = new JLabel("");
+		imageIcon.setHorizontalAlignment(SwingConstants.CENTER);
+		imageIcon.setIcon(new ImageIcon("C:\\Users\\vini6\\Documents\\ADS\\Desenvolvimento-desktop\\oficina\\images\\user-login.png"));
+		imageIcon.setBounds(0, 52, 379, 53);
+		contentPanel.add(imageIcon);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -107,7 +118,7 @@ public class Login extends JDialog {
 				JButton btnEntrar = new JButton("Entrar");
 				btnEntrar.setFont(new Font("Poppins", Font.PLAIN, 11));
 				btnEntrar.setSelectedIcon(null);
-				btnEntrar.setBackground(new Color(102, 204, 51));
+				btnEntrar.setBackground(new Color(255, 255, 255));
 				btnEntrar.setIcon(null);
 				btnEntrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -124,6 +135,7 @@ public class Login extends JDialog {
 						
 						String usuario = null;
 						
+						
 						//criar conexao
 						try {
 							conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -136,12 +148,14 @@ public class Login extends JDialog {
 								 //usuário existe
 								 if(usuario.equals(inputUsuario.getText())) {
 									 handleWindowMessageSucess("Bem-vindo de volta!");
+									 logado = true;
 										Login.this.dispose();
 								 } 
 							}
 							//usuário não existe
 							if(usuario == null) {
 								handleWindowMessage("Usuário ou senha incorreto!");
+								return;
 							}
 
 						} catch (SQLException erro) {
@@ -169,7 +183,7 @@ public class Login extends JDialog {
 						System.exit(0);
 					}
 				});
-				btnSair.setBackground(new Color(204, 102, 102));
+				btnSair.setBackground(new Color(255, 255, 255));
 				btnSair.setFont(new Font("Poppins", Font.PLAIN, 11));
 				btnSair.setIcon(null);
 //				btnSair.addActionListener(new ActionListener() {
