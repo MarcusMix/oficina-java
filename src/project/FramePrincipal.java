@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.GraphicsConfiguration;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -18,6 +20,7 @@ import javax.swing.SwingConstants;
 public class FramePrincipal extends JFrame {
 
 	private JPanel contentPane;
+	public static boolean logado;
 
 	/**
 	 * Launch the application.
@@ -28,7 +31,7 @@ public class FramePrincipal extends JFrame {
 				try {
 					FramePrincipal frame = new FramePrincipal();
 					frame.setVisible(true);
-					Login login = new Login();
+					Login login = new Login(logado);
 					login.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,15 +42,26 @@ public class FramePrincipal extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param logado 
 	 */
 	public FramePrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 925, 576);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLocationRelativeTo(null);
 		setTitle("Oficina...");
 		setResizable(false);
+		
+		//fazer uma requisição
+		
+		if(logado == false) {
+			System.exit(0);
+		}
+		
+//		userLoged() = false ? System.exit(0) :  logado;
+		
+//		handleWindowMessage(""); 
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -132,14 +146,14 @@ public class FramePrincipal extends JFrame {
 		
 		JLabel title = new JLabel("Oficina do Zé");
 		title.setHorizontalAlignment(SwingConstants.CENTER);
-		title.setFont(new Font("Poppins ExtraBold", Font.PLAIN, 20));
-		title.setBounds(0, 22, 434, 34);
+		title.setFont(new Font("Poppins ExtraBold", Font.PLAIN, 38));
+		title.setBounds(0, 55, 909, 51);
 		contentPane.add(title);
 		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\vini6\\Documents\\ADS\\Desenvolvimento-desktop\\oficina\\images\\main-image.png"));
-		lblNewLabel_1.setBounds(0, 52, 434, 76);
-		contentPane.add(lblNewLabel_1);
+		JLabel mainIcon = new JLabel("");
+		mainIcon.setHorizontalAlignment(SwingConstants.CENTER);
+		mainIcon.setIcon(new ImageIcon("C:\\Users\\vini6\\Documents\\ADS\\Desenvolvimento-desktop\\oficina\\images\\main-image.png"));
+		mainIcon.setBounds(0, 117, 909, 76);
+		contentPane.add(mainIcon);
 	}
 }
