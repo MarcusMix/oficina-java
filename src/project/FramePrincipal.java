@@ -20,18 +20,14 @@ import javax.swing.SwingConstants;
 public class FramePrincipal extends JFrame {
 
 	private JPanel contentPane;
-	public static boolean logado;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					FramePrincipal frame = new FramePrincipal();
 					frame.setVisible(true);
-					Login login = new Login(logado);
+					Login login = new Login();
 					login.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,10 +36,6 @@ public class FramePrincipal extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 * @param logado 
-	 */
 	public FramePrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 925, 576);
@@ -52,16 +44,6 @@ public class FramePrincipal extends JFrame {
 		setLocationRelativeTo(null);
 		setTitle("Oficina...");
 		setResizable(false);
-		
-		//fazer uma requisição
-		
-		if(logado == false) {
-			System.exit(0);
-		}
-		
-//		userLoged() = false ? System.exit(0) :  logado;
-		
-//		handleWindowMessage(""); 
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
