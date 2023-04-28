@@ -24,15 +24,17 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Login extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField inputUsuario;
 	private JPasswordField inputSenha;
-	public boolean logado = false;
 
-	public static void main(String[] args) {
+
+	public static void main(String[] args, boolean logado) {
 		try {
 			Login dialog = new Login();
 			dialog.setVisible(true);
@@ -55,7 +57,7 @@ public class Login extends JDialog {
 	}
 	
 	//is user login 
-	public boolean userLoged(boolean logado) {
+	public  static boolean userLoged(boolean logado) {
 		if (logado == true) {
 			System.out.println("Logado!");
 			return true;
@@ -66,7 +68,12 @@ public class Login extends JDialog {
 	}
 
 	public Login() {
-//		setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
 		setBounds(100, 100, 395, 320);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -148,8 +155,9 @@ public class Login extends JDialog {
 								 //usuário existe
 								 if(usuario.equals(inputUsuario.getText())) {
 									 handleWindowMessageSucess("Bem-vindo de volta!");
-									 logado = true;
-										Login.this.dispose();
+									 
+//									 userLoged();
+									 Login.this.dispose();
 								 } 
 							}
 							//usuário não existe
@@ -185,12 +193,7 @@ public class Login extends JDialog {
 				});
 				btnSair.setBackground(new Color(255, 255, 255));
 				btnSair.setFont(new Font("Poppins", Font.PLAIN, 11));
-				btnSair.setIcon(null);
-//				btnSair.addActionListener(new ActionListener() {
-//					public void actionPerformed(ActionEvent e) {
-//						setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//					}
-//				});
+				btnSair.setIcon(null);;
 				btnSair.setActionCommand("Cancel");
 				buttonPane.add(btnSair);
 			}
