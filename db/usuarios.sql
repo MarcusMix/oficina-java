@@ -6,5 +6,5 @@ create table usuarios (
     primary key (id)
 );
 
-insert into usuarios (nome, usuario, senha ) values ('Milena Cristina', 'milena', '123');
+insert into usuarios (nome, usuario, senha) values ('Milena Cristina', 'milena', '123');
 
