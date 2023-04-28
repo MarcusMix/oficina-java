@@ -55,17 +55,6 @@ public class Login extends JDialog {
 		message.setLocationRelativeTo(null);
 		message.setVisible(true);
 	}
-	
-	//is user login 
-	public  static boolean userLoged(boolean logado) {
-		if (logado == true) {
-			System.out.println("Logado!");
-			return true;
-		} else {
-			System.out.println("Erro!");
-			return false;
-		}
-	}
 
 	public Login() {
 		addWindowListener(new WindowAdapter() {
