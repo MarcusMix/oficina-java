@@ -26,6 +26,12 @@ public class RegisterUser extends JDialog {
 	private JTextField inputNome;
 	private JTextField inputUser;
 	private JTextField inputSenha;
+	//querys
+	static final String DB_NAME = "ordemservico";
+	static final String DB_URL = "jdbc:mysql://localhost/" + DB_NAME;
+	static final String USER = "root";
+	static final String PASS = "admin";
+	static String QUERY = null;
 
 	/**
 	 * Launch the application.
@@ -58,7 +64,7 @@ public class RegisterUser extends JDialog {
 	 * Create the dialog.
 	 */
 	public RegisterUser() {
-		setBounds(100, 100, 452, 364);
+		setBounds(100, 100, 548, 364);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -71,129 +77,119 @@ public class RegisterUser extends JDialog {
 			JLabel lblNewUser = new JLabel("Cadastrar usuário");
 			lblNewUser.setHorizontalAlignment(SwingConstants.CENTER);
 			lblNewUser.setFont(new Font("Poppins ExtraBold", Font.PLAIN, 20));
-			lblNewUser.setBounds(0, 0, 430, 51);
+			lblNewUser.setBounds(0, 0, 532, 51);
 			contentPanel.add(lblNewUser);
 		}
 		
 		JLabel lblNomeCompleto = new JLabel("Nome completo");
 		lblNomeCompleto.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNomeCompleto.setFont(new Font("Poppins", Font.PLAIN, 14));
-		lblNomeCompleto.setBounds(0, 107, 430, 22);
+		lblNomeCompleto.setBounds(0, 107, 522, 22);
 		contentPanel.add(lblNomeCompleto);
 		
 		inputNome = new JTextField();
 		inputNome.setFont(new Font("Poppins", Font.PLAIN, 14));
-		inputNome.setBounds(116, 128, 202, 25);
+		inputNome.setBounds(179, 128, 202, 25);
 		contentPanel.add(inputNome);
 		inputNome.setColumns(10);
 		
 		JLabel lblUsurio = new JLabel("Usuário");
 		lblUsurio.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUsurio.setFont(new Font("Poppins", Font.PLAIN, 14));
-		lblUsurio.setBounds(0, 164, 430, 22);
+		lblUsurio.setBounds(0, 164, 532, 22);
 		contentPanel.add(lblUsurio);
 		
 		inputUser = new JTextField();
 		inputUser.setFont(new Font("Poppins", Font.PLAIN, 14));
 		inputUser.setColumns(10);
-		inputUser.setBounds(116, 184, 202, 25);
+		inputUser.setBounds(179, 184, 202, 25);
 		contentPanel.add(inputUser);
 		
 		JLabel lblSenha = new JLabel("Senha");
 		lblSenha.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSenha.setFont(new Font("Poppins", Font.PLAIN, 14));
-		lblSenha.setBounds(0, 220, 430, 22);
+		lblSenha.setBounds(0, 220, 522, 22);
 		contentPanel.add(lblSenha);
 		
 		inputSenha = new JTextField();
 		inputSenha.setFont(new Font("Poppins", Font.PLAIN, 14));
 		inputSenha.setColumns(10);
-		inputSenha.setBounds(116, 243, 202, 25);
+		inputSenha.setBounds(179, 243, 202, 25);
 		contentPanel.add(inputSenha);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\vini6\\Documents\\ADS\\Desenvolvimento-desktop\\oficina\\images\\user-color.png"));
-		lblNewLabel.setBounds(10, 37, 420, 70);
+		lblNewLabel.setBounds(10, 37, 522, 70);
 		contentPanel.add(lblNewLabel);
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("Cadastrar");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						//querys
-						String DB_NAME = "ordemservico";
-						String DB_URL = "jdbc:mysql://localhost/" + DB_NAME;
-						String USER = "root";
-						String PASS = "admin";
-						
-						//registrar usuário
-						String QUERY = "INSERT INTO usuarios (nome, usuario, senha) "
-								+ "VALUES ('" + inputNome.getText() +"', '" + inputUser.getText() + "', '" + inputSenha.getText() +"')";
-									
-						if(inputNome.getText().isBlank()) {
-							handleWindowMessage("Nome em branco!");
-							return;
-						} else if (inputUser.getText().isBlank()) {
-							handleWindowMessage("Usuário em branco!");
-							return;
-						} else if (inputSenha.getText().isBlank()) {
-							handleWindowMessage("Senha em branco!");
-							return;
-						}
-
-						//criar conexao
-						try {
-							Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-							PreparedStatement stmt =  conn.prepareStatement(QUERY);
-
-							int result = stmt.executeUpdate(QUERY);
-
-						    if(result == 0) {
-						    	handleWindowMessage("Erro ao criar conta!");
-						    } else {
-						    	handleWindowMessageSucess("Conta criada com sucesso!");
-						    	inputSenha.setText("");
-						    	inputUser.setText("");
-						    	inputNome.setText("");
-						    }
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 279, 532, 35);
+		contentPanel.add(panel);
+		
+		JButton okButton = new JButton("Cadastrar");
+		okButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				//registrar usuário
+				QUERY = "INSERT INTO usuarios (nome, usuario, senha) "
+						+ "VALUES ('" + inputNome.getText() +"', '" + inputUser.getText() + "', '" + inputSenha.getText() +"')";
 							
+				if(inputNome.getText().isBlank()) {
+					handleWindowMessage("Nome em branco!");
+					return;
+				} else if (inputUser.getText().isBlank()) {
+					handleWindowMessage("Usuário em branco!");
+					return;
+				} else if (inputSenha.getText().isBlank()) {
+					handleWindowMessage("Senha em branco!");
+					return;
+				}
+				
+				//criar conexao
+				try {
+					Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+					PreparedStatement pstmt =  conn.prepareStatement(QUERY);
+//					pstmt.setString(1, inputNome.getText());
+//					pstmt.setString(2, inputUser.getText());
+//					pstmt.setString(3, inputSenha.getText())
+//					pstmt.close();
+//					conn.close();
 
-						} catch (SQLException erro) {
-							erro.printStackTrace();
-						}
-						
-						//fechar conexao
-//						try {
-//						    if (conn != null) {
-//						        conn.close();
-//						    }
-//						} catch (SQLException error) {
-//						    System.out.println("Erro ao fechar a conexão com o banco de dados: " + error.getMessage());
-//						}
-					}
-						
-					}
-				);
-				okButton.setFont(new Font("Poppins", Font.PLAIN, 11));
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+					int result = pstmt.executeUpdate(QUERY);
+
+				    if(result == 0) {
+				    	handleWindowMessage("Erro ao criar conta!");
+				    } else {
+				    	handleWindowMessageSucess("Conta criada com sucesso!");
+				    	inputSenha.setText("");
+				    	inputUser.setText("");
+				    	inputNome.setText("");
+				    }
+					
+
+				} catch (SQLException erro) {
+					erro.printStackTrace();
+				}
 			}
-			{
-				JButton btnVoltar = new JButton("Voltar");
-				btnVoltar.setFont(new Font("Poppins", Font.PLAIN, 11));
-				btnVoltar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-					}
-				});
-				btnVoltar.setActionCommand("Cancel");
-				buttonPane.add(btnVoltar);
-			}
-		}
+		});
+		okButton.setFont(new Font("Poppins", Font.PLAIN, 11));
+		okButton.setActionCommand("OK");
+		panel.add(okButton);
+		
+		JButton btnNovo = new JButton("Novo");
+		panel.add(btnNovo);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		panel.add(btnCancelar);
+		
+		JButton btnEliminar = new JButton("Eliminar");
+		panel.add(btnEliminar);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setFont(new Font("Poppins", Font.PLAIN, 11));
+		btnVoltar.setActionCommand("Cancel");
+		panel.add(btnVoltar);
 	}
 }
