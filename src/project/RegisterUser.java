@@ -26,16 +26,12 @@ public class RegisterUser extends JDialog {
 	private JTextField inputNome;
 	private JTextField inputUser;
 	private JTextField inputSenha;
-	//querys
 	static final String DB_NAME = "ordemservico";
 	static final String DB_URL = "jdbc:mysql://localhost/" + DB_NAME;
 	static final String USER = "root";
 	static final String PASS = "admin";
 	static String QUERY = null;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		try {
 			RegisterUser dialog = new RegisterUser();
@@ -60,9 +56,6 @@ public class RegisterUser extends JDialog {
 			message.setVisible(true);
 		}
 
-	/**
-	 * Create the dialog.
-	 */
 	public RegisterUser() {
 		setBounds(100, 100, 548, 364);
 		getContentPane().setLayout(new BorderLayout());
@@ -84,12 +77,12 @@ public class RegisterUser extends JDialog {
 		JLabel lblNomeCompleto = new JLabel("Nome completo");
 		lblNomeCompleto.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNomeCompleto.setFont(new Font("Poppins", Font.PLAIN, 14));
-		lblNomeCompleto.setBounds(0, 107, 522, 22);
+		lblNomeCompleto.setBounds(0, 107, 532, 22);
 		contentPanel.add(lblNomeCompleto);
 		
 		inputNome = new JTextField();
 		inputNome.setFont(new Font("Poppins", Font.PLAIN, 14));
-		inputNome.setBounds(179, 128, 202, 25);
+		inputNome.setBounds(160, 128, 202, 25);
 		contentPanel.add(inputNome);
 		inputNome.setColumns(10);
 		
@@ -102,7 +95,7 @@ public class RegisterUser extends JDialog {
 		inputUser = new JTextField();
 		inputUser.setFont(new Font("Poppins", Font.PLAIN, 14));
 		inputUser.setColumns(10);
-		inputUser.setBounds(179, 184, 202, 25);
+		inputUser.setBounds(160, 184, 202, 25);
 		contentPanel.add(inputUser);
 		
 		JLabel lblSenha = new JLabel("Senha");
@@ -114,7 +107,7 @@ public class RegisterUser extends JDialog {
 		inputSenha = new JTextField();
 		inputSenha.setFont(new Font("Poppins", Font.PLAIN, 14));
 		inputSenha.setColumns(10);
-		inputSenha.setBounds(179, 243, 202, 25);
+		inputSenha.setBounds(160, 243, 202, 25);
 		contentPanel.add(inputSenha);
 		
 		JLabel lblNewLabel = new JLabel("");
@@ -131,7 +124,6 @@ public class RegisterUser extends JDialog {
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				
 				//registrar usuário
 				QUERY = "INSERT INTO usuarios (nome, usuario, senha) "
 						+ "VALUES ('" + inputNome.getText() +"', '" + inputUser.getText() + "', '" + inputSenha.getText() +"')";
@@ -147,10 +139,14 @@ public class RegisterUser extends JDialog {
 					return;
 				}
 				
+				Connection conn = null;
+				PreparedStatement pstmt = null;
+				
 				//criar conexao
 				try {
-					Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-					PreparedStatement pstmt =  conn.prepareStatement(QUERY);
+					conn = DriverManager.getConnection(DB_URL, USER, PASS);
+					pstmt =  conn.prepareStatement(QUERY);
+//					arrumar depois
 //					pstmt.setString(1, inputNome.getText());
 //					pstmt.setString(2, inputUser.getText());
 //					pstmt.setString(3, inputSenha.getText())
@@ -167,10 +163,18 @@ public class RegisterUser extends JDialog {
 				    	inputUser.setText("");
 				    	inputNome.setText("");
 				    }
-					
 
 				} catch (SQLException erro) {
 					erro.printStackTrace();
+				}
+				
+				//fechar conexao
+				try {
+				    if (conn != null) {
+				        conn.close();
+				    }
+				} catch (SQLException error) {
+				    System.out.println("Erro ao fechar a conexão com o banco de dados: " + error.getMessage());
 				}
 			}
 		});
