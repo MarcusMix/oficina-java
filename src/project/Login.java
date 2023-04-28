@@ -32,7 +32,11 @@ public class Login extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField inputUsuario;
 	private JPasswordField inputSenha;
-
+	static final String DB_NAME = "ordemservico";
+	static final String DB_URL = "jdbc:mysql://localhost/" + DB_NAME;
+	static final String USER = "root";
+	static final String PASS = "admin";
+	static String QUERY = null;
 
 	public static void main(String[] args, boolean logado) {
 		try {
@@ -118,19 +122,15 @@ public class Login extends JDialog {
 				btnEntrar.setIcon(null);
 				btnEntrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						String DB_NAME = "ordemservico";
-						String DB_URL = "jdbc:mysql://localhost/" + DB_NAME;
-						String USER = "root";
-						String PASS = "admin";
-						String QUERY = "SELECT * FROM usuarios WHERE usuario = '" 
+						
+						QUERY = "SELECT * FROM usuarios WHERE usuario = '" 
 						+ inputUsuario.getText() + "' AND senha = '" + inputSenha.getText() + "'";
 						
 						Connection conn = null;
-						PreparedStatement stmt;
-						ResultSet rs;
+						PreparedStatement stmt = null;
+						ResultSet rs = null;
 						
 						String usuario = null;
-						
 						
 						//criar conexao
 						try {
@@ -144,8 +144,6 @@ public class Login extends JDialog {
 								 //usuário existe
 								 if(usuario.equals(inputUsuario.getText())) {
 									 handleWindowMessageSucess("Bem-vindo de volta!");
-									 
-//									 userLoged();
 									 Login.this.dispose();
 								 } 
 							}
