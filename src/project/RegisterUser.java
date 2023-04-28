@@ -183,12 +183,15 @@ public class RegisterUser extends JDialog {
 		panel.add(okButton);
 		
 		JButton btnNovo = new JButton("Novo");
+		btnNovo.setFont(new Font("Poppins", Font.PLAIN, 11));
 		panel.add(btnNovo);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setFont(new Font("Poppins", Font.PLAIN, 11));
 		panel.add(btnCancelar);
 		
 		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.setFont(new Font("Poppins", Font.PLAIN, 11));
 		panel.add(btnEliminar);
 		
 		JButton btnVoltar = new JButton("Voltar");
