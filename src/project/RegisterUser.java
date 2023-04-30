@@ -120,8 +120,8 @@ public class RegisterUser extends JDialog {
 		panel.setBounds(0, 279, 532, 35);
 		contentPanel.add(panel);
 		
-		JButton okButton = new JButton("Cadastrar");
-		okButton.addActionListener(new ActionListener() {
+		JButton btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				//registrar usuário
@@ -178,9 +178,9 @@ public class RegisterUser extends JDialog {
 				}
 			}
 		});
-		okButton.setFont(new Font("Poppins", Font.PLAIN, 11));
-		okButton.setActionCommand("OK");
-		panel.add(okButton);
+		btnCadastrar.setFont(new Font("Poppins", Font.PLAIN, 11));
+		btnCadastrar.setActionCommand("OK");
+		panel.add(btnCadastrar);
 		
 		JButton btnNovo = new JButton("Novo");
 		btnNovo.setFont(new Font("Poppins", Font.PLAIN, 11));
@@ -191,6 +191,35 @@ public class RegisterUser extends JDialog {
 		panel.add(btnCancelar);
 		
 		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					QUERY = "DELETE FROM usuarios WHERE usuario = '" +inputUser.getText() + "'";
+					 System.out.println(QUERY);
+					 
+					 Connection conn = null;
+						PreparedStatement pstmt = null;
+						
+						//criar conexao
+						try {
+							conn = DriverManager.getConnection(DB_URL, USER, PASS);
+							pstmt =  conn.prepareStatement(QUERY);
+
+							int result = pstmt.executeUpdate(QUERY);
+
+						    if(result == 0) {
+						    	handleWindowMessage("Erro ao remover conta!");
+						    } else {
+						    	handleWindowMessageSucess("Conta removida com sucesso!");
+						    	inputSenha.setText("");
+						    	inputUser.setText("");
+						    	inputNome.setText("");
+						    }
+
+						} catch (SQLException erro) {
+							erro.printStackTrace();
+						}
+			}
+		});
 		btnEliminar.setFont(new Font("Poppins", Font.PLAIN, 11));
 		panel.add(btnEliminar);
 		
