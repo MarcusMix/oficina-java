@@ -194,10 +194,10 @@ public class RegisterUser extends JDialog {
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					QUERY = "DELETE FROM usuarios WHERE usuario = '" +inputUser.getText() + "'";
-					 System.out.println(QUERY);
+					System.out.println(QUERY);
 					 
-					 Connection conn = null;
-						PreparedStatement pstmt = null;
+					Connection conn = null;
+					PreparedStatement pstmt = null;
 						
 						//criar conexao
 						try {
