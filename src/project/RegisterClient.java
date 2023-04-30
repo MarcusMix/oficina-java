@@ -34,15 +34,16 @@ public class RegisterClient extends JDialog {
 	private JTextField inputEmail;
 	private JTextField inputTelefone1;
 	private JTextField inputTelefone2;
-//	private JTextField inputEstado;
 	private JTextField inputCidade;
 	private JTextField inputRua;
 	private JTextField inputBairro;
 	private JTextField inputCEP;
+	static final String DB_NAME = "ordemservico";
+	static final String DB_URL = "jdbc:mysql://localhost/" + DB_NAME;
+	static final String USER = "root";
+	static final String PASS = "admin";
+	static String QUERY = null;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		try {
 			RegisterClient dialog = new RegisterClient();
@@ -67,9 +68,6 @@ public class RegisterClient extends JDialog {
 			message.setVisible(true);
 		}
 
-	/**
-	 * Create the dialog.RegisterClient
-	 */
 	public RegisterClient() {
 		setBounds(100, 100, 585, 726);
 		getContentPane().setLayout(new BorderLayout());
@@ -288,14 +286,8 @@ public class RegisterClient extends JDialog {
 				JButton okButton = new JButton("Cadastrar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						//querys
-						String DB_NAME = "ordemservico";
-						String DB_URL = "jdbc:mysql://localhost/" + DB_NAME;
-						String USER = "root";
-						String PASS = "admin";
-						
 						//registrar usuário
-						String QUERY = "INSERT INTO clientes (nome, rg, cpf, rua, bairro, cidade, estado, cep, email, fone1, fone2, obs, nascimento) "
+						QUERY = "INSERT INTO clientes (nome, rg, cpf, rua, bairro, cidade, estado, cep, email, fone1, fone2, obs, nascimento) "
 								+ "VALUES ('" + inputNome.getText() +"', '" + inputRG.getText() + "', '" + inputCPF.getText() +"', "
 								+ "'" + inputRua.getText() + "', '" + inputBairro.getText() + "', '" + inputCidade.getText() + "'"
 								+ ", '" + comboBoxEstado.getSelectedItem() + "', '" + inputCEP.getText() + "', '" + inputEmail.getText() + "'"
@@ -366,7 +358,6 @@ public class RegisterClient extends JDialog {
 						    	inputRua.setText("");
 						    	inputCEP.setText("");
 						    }
-							
 
 						} catch (SQLException erro) {
 							erro.printStackTrace();
@@ -374,8 +365,7 @@ public class RegisterClient extends JDialog {
 						
 					}
 						
-					}
-				);
+				});
 				okButton.setFont(new Font("Poppins", Font.PLAIN, 11));
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
