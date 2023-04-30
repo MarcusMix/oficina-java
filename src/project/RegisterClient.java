@@ -286,6 +286,7 @@ public class RegisterClient extends JDialog {
 				JButton okButton = new JButton("Cadastrar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						
 						//registrar usuário
 						QUERY = "INSERT INTO clientes (nome, rg, cpf, rua, bairro, cidade, estado, cep, email, fone1, fone2, obs, nascimento) "
 								+ "VALUES ('" + inputNome.getText() +"', '" + inputRG.getText() + "', '" + inputCPF.getText() +"', "
