@@ -19,18 +19,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JPasswordField;
 
 public class RegisterUser extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField inputNome;
 	private JTextField inputUser;
-	private JTextField inputSenha;
 	static final String DB_NAME = "ordemservico";
 	static final String DB_URL = "jdbc:mysql://localhost/" + DB_NAME;
 	static final String USER = "root";
 	static final String PASS = "admin";
 	static String QUERY = null;
+	private JPasswordField inputSenha;
 
 	public static void main(String[] args) {
 		try {
@@ -103,12 +104,6 @@ public class RegisterUser extends JDialog {
 		lblSenha.setFont(new Font("Poppins", Font.PLAIN, 14));
 		lblSenha.setBounds(0, 220, 522, 22);
 		contentPanel.add(lblSenha);
-		
-		inputSenha = new JTextField();
-		inputSenha.setFont(new Font("Poppins", Font.PLAIN, 14));
-		inputSenha.setColumns(10);
-		inputSenha.setBounds(160, 243, 202, 25);
-		contentPanel.add(inputSenha);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -183,18 +178,66 @@ public class RegisterUser extends JDialog {
 		panel.add(btnCadastrar);
 		
 		JButton btnNovo = new JButton("Novo");
+		btnNovo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				inputSenha.setText("");
+		    	inputUser.setText("");
+		    	inputNome.setText("");
+			}
+		});
 		btnNovo.setFont(new Font("Poppins", Font.PLAIN, 11));
 		panel.add(btnNovo);
 		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setFont(new Font("Poppins", Font.PLAIN, 11));
-		panel.add(btnCancelar);
+		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					QUERY = "SELECT * FROM usuarios  WHERE usuario = '" + inputUser.getText() + "' OR nome = '" + inputNome.getText() + "'";
+					Connection conn = null;
+					PreparedStatement stmt = null;
+					ResultSet rs = null;
+					String usuario = null;
+					String nome = null;
+					String senha = null;
+					
+					try {
+						conn = DriverManager.getConnection(DB_URL, USER, PASS);
+						stmt =  conn.prepareStatement(QUERY);
+						rs = stmt.executeQuery(QUERY);
+
+						if(inputUser.getText().isBlank() && inputNome.getText().isBlank()) {
+							handleWindowMessage("Preencha um dos campos para pesquisar");
+							return;
+						}
+						
+						while(rs.next()) {
+							usuario = rs.getString("usuario");
+							nome = rs.getString("nome");
+							senha = rs.getString("senha");
+							
+							inputUser.setText(usuario);
+							inputNome.setText(nome);
+							inputSenha.setText(senha);
+						}
+						
+						if(usuario == null) {
+							handleWindowMessage("Usuário não encontrado!");
+							return;
+						}
+						
+						
+					} catch (SQLException error) {
+						System.out.println("Erro ao pesquisar usuário!" + error.getMessage());
+					}
+			}
+		});
+		btnPesquisar.setFont(new Font("Poppins", Font.PLAIN, 11));
+		panel.add(btnPesquisar);
 		
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					QUERY = "DELETE FROM usuarios WHERE usuario = '" +inputUser.getText() + "'";
-					System.out.println(QUERY);
+					QUERY = "DELETE FROM usuarios WHERE usuario = '" + inputUser.getText() + "' OR nome = '" + inputNome.getText() + "'";
+//					System.out.println(QUERY);
 					 
 					Connection conn = null;
 					PreparedStatement pstmt = null;
@@ -224,8 +267,17 @@ public class RegisterUser extends JDialog {
 		panel.add(btnEliminar);
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		btnVoltar.setFont(new Font("Poppins", Font.PLAIN, 11));
 		btnVoltar.setActionCommand("Cancel");
 		panel.add(btnVoltar);
+		
+		inputSenha = new JPasswordField();
+		inputSenha.setBounds(160, 242, 202, 25);
+		contentPanel.add(inputSenha);
 	}
 }
