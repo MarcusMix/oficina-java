@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.awt.event.ActionEvent;
@@ -55,7 +56,7 @@ public class RegisterClient extends JDialog {
 	}
 	
 	
-	//message
+		//message
 		public void handleWindowMessage(String text) {
 			Message message = new Message(text);
 			message.setLocationRelativeTo(null);
@@ -69,7 +70,7 @@ public class RegisterClient extends JDialog {
 		}
 
 	public RegisterClient() {
-		setBounds(100, 100, 585, 726);
+		setBounds(100, 100, 585, 814);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -278,111 +279,185 @@ public class RegisterClient extends JDialog {
 		lblOBS.setFont(new Font("Poppins", Font.PLAIN, 14));
 		lblOBS.setBounds(40, 512, 488, 22);
 		contentPanel.add(lblOBS);
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("Cadastrar");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						
-						//registrar usuário
-						QUERY = "INSERT INTO clientes (nome, rg, cpf, rua, bairro, cidade, estado, cep, email, fone1, fone2, obs, nascimento) "
-								+ "VALUES ('" + inputNome.getText() +"', '" + inputRG.getText() + "', '" + inputCPF.getText() +"', "
-								+ "'" + inputRua.getText() + "', '" + inputBairro.getText() + "', '" + inputCidade.getText() + "'"
-								+ ", '" + comboBoxEstado.getSelectedItem() + "', '" + inputCEP.getText() + "', '" + inputEmail.getText() + "'"
-								+ ", '" + inputTelefone1.getText() + "', '" + inputTelefone2.getText() + "'"
-								+ ", '" + inputOBS.getText() + "', '" + inputNascimento.getText() + "' )";
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 729, 569, 35);
+		contentPanel.add(panel);
+		
+		JButton btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					
+					//registrar usuário
+					QUERY = "INSERT INTO clientes (nome, rg, cpf, rua, bairro, cidade, estado, cep, email, fone1, fone2, obs, nascimento) "
+							+ "VALUES ('" + inputNome.getText() +"', '" + inputRG.getText() + "', '" + inputCPF.getText() +"', "
+							+ "'" + inputRua.getText() + "', '" + inputBairro.getText() + "', '" + inputCidade.getText() + "'"
+							+ ", '" + comboBoxEstado.getSelectedItem() + "', '" + inputCEP.getText() + "', '" + inputEmail.getText() + "'"
+							+ ", '" + inputTelefone1.getText() + "', '" + inputTelefone2.getText() + "'"
+							+ ", '" + inputOBS.getText() + "', '" + inputNascimento.getText() + "' )";
 
-									
-						if(inputNome.getText().isBlank()) {
-							handleWindowMessage("Nome em branco!");
-							return;
-						} else if (inputRG.getText().isBlank()) {
-							handleWindowMessage("RG em branco!");
-							return;
-						} else if (inputCPF.getText().isBlank()) {
-							handleWindowMessage("CPF em branco!");
-							return;
-						} else if (inputNascimento.getText().isBlank()) {
-							handleWindowMessage("Data de Nascimento em branco!");
-							return;
-						} else if (inputEmail.getText().isBlank()) {
-							handleWindowMessage("E-mail em branco!");
-							return;
-						} else if (inputTelefone1.getText().isBlank()) {
-							handleWindowMessage("Telefone 1 em branco!");
-							return;
-						} else if (inputTelefone2.getText().isBlank()) {
-							handleWindowMessage("Telefone2 em branco!");
-							return;
-						} else if (inputCidade.getText().isBlank()) {
-							handleWindowMessage("Cidade em branco!");
-							return;
-						} else if (inputRua.getText().isBlank()) {
-							handleWindowMessage("Rua em branco!");
-							return;
-						} else if (inputBairro.getText().isBlank()) {
-							handleWindowMessage("Bairro em branco!");
-							return;
-						} else if (inputCEP.getText().isBlank()) {
-							handleWindowMessage("CEP em branco!");
-							return;
-						} else if (inputOBS.getText().isBlank()) {
-							handleWindowMessage("Observação em branco!");
-							return;
-						}
-
-						//criar conexao
-						try {
-							Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-							PreparedStatement stmt =  conn.prepareStatement(QUERY);
-
-							int result = stmt.executeUpdate(QUERY);
-
-						    if(result == 0) {
-						    	handleWindowMessage("Erro cadastrar cliente!");
-						    } else {
-						    	handleWindowMessageSucess("Cliente cadastrado com sucesso!");
-						    	inputCPF.setText("");
-						    	inputRG.setText("");
-						    	inputNome.setText("");
-						    	inputRG.setText("");
-						    	inputEmail.setText("");
-						    	inputNascimento.setText("");
-						    	inputOBS.setText("");
-						    	inputTelefone1.setText("");
-						    	inputTelefone2.setText("");
-						    	inputCidade.setText("");
-						    	inputBairro.setText("");
-						    	inputRua.setText("");
-						    	inputCEP.setText("");
-						    }
-
-						} catch (SQLException erro) {
-							erro.printStackTrace();
-						}
-						
+								
+					if(inputNome.getText().isBlank()) {
+						handleWindowMessage("Nome em branco!");
+						return;
+					} else if (inputRG.getText().isBlank()) {
+						handleWindowMessage("RG em branco!");
+						return;
+					} else if (inputCPF.getText().isBlank()) {
+						handleWindowMessage("CPF em branco!");
+						return;
+					} else if (inputNascimento.getText().isBlank()) {
+						handleWindowMessage("Data de Nascimento em branco!");
+						return;
+					} else if (inputEmail.getText().isBlank()) {
+						handleWindowMessage("E-mail em branco!");
+						return;
+					} else if (inputTelefone1.getText().isBlank()) {
+						handleWindowMessage("Telefone 1 em branco!");
+						return;
+					} else if (inputTelefone2.getText().isBlank()) {
+						handleWindowMessage("Telefone2 em branco!");
+						return;
+					} else if (inputCidade.getText().isBlank()) {
+						handleWindowMessage("Cidade em branco!");
+						return;
+					} else if (inputRua.getText().isBlank()) {
+						handleWindowMessage("Rua em branco!");
+						return;
+					} else if (inputBairro.getText().isBlank()) {
+						handleWindowMessage("Bairro em branco!");
+						return;
+					} else if (inputCEP.getText().isBlank()) {
+						handleWindowMessage("CEP em branco!");
+						return;
+					} else if (inputOBS.getText().isBlank()) {
+						handleWindowMessage("Observação em branco!");
+						return;
 					}
+
+					//criar conexao
+					try {
+						Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+						PreparedStatement stmt =  conn.prepareStatement(QUERY);
+
+						int result = stmt.executeUpdate(QUERY);
+
+					    if(result == 0) {
+					    	handleWindowMessage("Erro cadastrar cliente!");
+					    } else {
+					    	handleWindowMessageSucess("Cliente cadastrado com sucesso!");
+					    	inputCPF.setText("");
+					    	inputRG.setText("");
+					    	inputNome.setText("");
+					    	inputRG.setText("");
+					    	inputEmail.setText("");
+					    	inputNascimento.setText("");
+					    	inputOBS.setText("");
+					    	inputTelefone1.setText("");
+					    	inputTelefone2.setText("");
+					    	inputCidade.setText("");
+					    	inputBairro.setText("");
+					    	inputRua.setText("");
+					    	inputCEP.setText("");
+					    }
+
+					} catch (SQLException erro) {
+						erro.printStackTrace();
+				}		
+			}
+		});
+		btnCadastrar.setFont(new Font("Poppins", Font.PLAIN, 11));
+		btnCadastrar.setActionCommand("OK");
+		panel.add(btnCadastrar);
+		
+		JButton btnNovo = new JButton("Novo");
+		btnNovo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				inputCPF.setText("");
+		    	inputRG.setText("");
+		    	inputNome.setText("");
+		    	inputRG.setText("");
+		    	inputEmail.setText("");
+		    	inputNascimento.setText("");
+		    	inputOBS.setText("");
+		    	inputTelefone1.setText("");
+		    	inputTelefone2.setText("");
+		    	inputCidade.setText("");
+		    	inputBairro.setText("");
+		    	inputRua.setText("");
+		    	inputCEP.setText("");
+			}
+		});
+		btnNovo.setFont(new Font("Poppins", Font.PLAIN, 11));
+		panel.add(btnNovo);
+		
+		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				QUERY = "SELECT * FROM clientes WHERE nome = '" + inputNome.getText() + "' OR cpf = '" + inputCPF.getText() + "'";
+				System.out.println(QUERY);
+				Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet rs = null;
+				String nome, cpf, rg, nascimento, email, rua, bairro, cidade, estado, cep,
+				fone1, fone2, obs = null;
+				
+				try {
+					conn = DriverManager.getConnection(DB_URL, USER, PASS);
+					stmt = conn.prepareStatement(QUERY);
+					rs = stmt.executeQuery(QUERY);
+					
+					while(rs.next()) {
+						nome = rs.getString("nome");
+						cpf = rs.getString("cpf");
+						rg = rs.getString("rg");
+						nascimento = rs.getString("nascimento");
+						email = rs.getString("email");
+						rua = rs.getString("rua");
+						bairro = rs.getString("bairro");
+						cidade = rs.getString("cidade");
+						estado = rs.getString("estado");
+						cep = rs.getString("cep");
+						fone1 = rs.getString("fone1");
+						fone2 = rs.getString("fone2");
+						obs = rs.getString("obs");
 						
-				});
-				okButton.setFont(new Font("Poppins", Font.PLAIN, 11));
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton btnVoltar = new JButton("Voltar");
-				btnVoltar.setFont(new Font("Poppins", Font.PLAIN, 11));
-				btnVoltar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
+						inputNome.setText(nome);
+						inputCPF.setText(cpf);
+						inputRG.setText(rg);
+						inputNascimento.setText(nascimento);
+						inputEmail.setText(email);
+						inputRua.setText(rua);
+						inputBairro.setText(bairro);
+						inputCidade.setText(cidade);
+						comboBoxEstado.setSelectedItem(estado);;
+						inputCEP.setText(cep);
+						inputTelefone1.setText(fone1);
+						inputTelefone2.setText(fone2);
+						inputOBS.setText(obs);						
 					}
-				});
-				btnVoltar.setActionCommand("Cancel");
-				buttonPane.add(btnVoltar);
+					
+				} catch (SQLException error) {
+					System.out.println(error);
+				}
+				
 			}
-		}
+		});
+		btnPesquisar.setFont(new Font("Poppins", Font.PLAIN, 11));
+		panel.add(btnPesquisar);
+		
+		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.setFont(new Font("Poppins", Font.PLAIN, 11));
+		panel.add(btnEliminar);
+		
+		JButton btnVoltar_1 = new JButton("Voltar");
+		btnVoltar_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnVoltar_1.setFont(new Font("Poppins", Font.PLAIN, 11));
+		btnVoltar_1.setActionCommand("Cancel");
+		panel.add(btnVoltar_1);
 	}
 }
