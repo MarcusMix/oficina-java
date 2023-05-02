@@ -447,6 +447,32 @@ public class RegisterClient extends JDialog {
 		panel.add(btnPesquisar);
 		
 		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					QUERY = "DELETE FROM clientes WHERE nome = '" + inputNome.getText() + "' OR cpf = '" + inputCPF.getText() + "'";
+					System.out.println(QUERY);
+					Connection conn = null;
+					PreparedStatement stmt = null;
+					int rs;
+					
+					try {
+						conn = DriverManager.getConnection(DB_URL, USER, PASS);
+						stmt = conn.prepareStatement(QUERY);
+						rs = stmt.executeUpdate(QUERY);
+						
+						if(rs == 0) {
+							handleWindowMessage("Erro ao excluir!");
+							return;
+						} else {
+							handleWindowMessageSucess("Excluído com sucesso!");
+							return;
+						}
+						
+					} catch (SQLException error) {
+						System.out.println("Erro ao excluir cliente: " + error.getMessage());
+					}
+			}
+		});
 		btnEliminar.setFont(new Font("Poppins", Font.PLAIN, 11));
 		panel.add(btnEliminar);
 		
