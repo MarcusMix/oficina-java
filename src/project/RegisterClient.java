@@ -55,19 +55,18 @@ public class RegisterClient extends JDialog {
 		}
 	}
 	
+	//message
+	public void handleWindowMessage(String text) {
+		Message message = new Message(text);
+		message.setLocationRelativeTo(null);
+		message.setVisible(true);
+	}
 	
-		//message
-		public void handleWindowMessage(String text) {
-			Message message = new Message(text);
-			message.setLocationRelativeTo(null);
-			message.setVisible(true);
-		}
-		
-		public void handleWindowMessageSucess(String text) {
-			MessageSucess message = new MessageSucess(text);
-			message.setLocationRelativeTo(null);
-			message.setVisible(true);
-		}
+	public void handleWindowMessageSucess(String text) {
+		MessageSucess message = new MessageSucess(text);
+		message.setLocationRelativeTo(null);
+		message.setVisible(true);
+	}
 
 	public RegisterClient() {
 		setBounds(100, 100, 585, 814);
@@ -125,10 +124,10 @@ public class RegisterClient extends JDialog {
 		//cpf
 		try {
 			inputCPF = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
-	    } catch (ParseException e) {
-	      e.printStackTrace();
-	    }
-		
+		} catch (ParseException e) {
+		      e.printStackTrace();
+		}
+	    
 		inputCPF.setFont(new Font("Poppins", Font.PLAIN, 14));
 		inputCPF.setColumns(10);
 		inputCPF.setBounds(302, 184, 226, 25);
@@ -166,23 +165,23 @@ public class RegisterClient extends JDialog {
 		lblTel1.setBounds(40, 275, 226, 22);
 		contentPanel.add(lblTel1);
 	
-		    try {
-		    	inputTelefone1 = new JFormattedTextField(new MaskFormatter("(##) #####-####"));
-		    } catch (ParseException e) {
+	    try {
+	    	inputTelefone1 = new JFormattedTextField(new MaskFormatter("(##) #####-####"));
+	    } catch (ParseException e) {
 		      e.printStackTrace();
-		    }
-		    
+		}
+	    
 	    inputTelefone1.setFont(new Font("Poppins", Font.PLAIN, 14));
 		inputTelefone1.setColumns(10);
 		inputTelefone1.setBounds(40, 296, 226, 25);
 		contentPanel.add(inputTelefone1);
 		
 		//telefone 2
-		    try {
-		    	inputTelefone2 = new JFormattedTextField(new MaskFormatter("(##) #####-####"));
-		    } catch (ParseException e) {
+	    try {
+	    	inputTelefone2 = new JFormattedTextField(new MaskFormatter("(##) #####-####"));
+	    } catch (ParseException e) {
 		      e.printStackTrace();
-		    }
+		}
 	    
 		inputTelefone2.setFont(new Font("Poppins", Font.PLAIN, 14));
 		inputTelefone2.setColumns(10);
@@ -201,10 +200,12 @@ public class RegisterClient extends JDialog {
 		lblEstado.setBounds(40, 332, 226, 22);
 		contentPanel.add(lblEstado);
 		
-		String[] estados = {"Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", 
+		String[] estados = {
+				"Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", 
 				"Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais",
 				"Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", 
-				"Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"};
+				"Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"
+				};
 
 		JComboBox comboBoxEstado = new JComboBox(estados);
 		comboBoxEstado.setSelectedIndex(23);
@@ -258,10 +259,10 @@ public class RegisterClient extends JDialog {
 		
 		try {
 			inputCEP = new JFormattedTextField(new MaskFormatter("#####-###"));
-	    } catch (ParseException e) {
-	      e.printStackTrace();
-	    }
-		
+		 } catch (ParseException e) {
+		      e.printStackTrace();
+		 }
+	   
 		inputCEP.setFont(new Font("Poppins", Font.PLAIN, 14));
 		inputCEP.setColumns(10);
 		inputCEP.setBounds(302, 467, 226, 25);
@@ -476,14 +477,14 @@ public class RegisterClient extends JDialog {
 		btnEliminar.setFont(new Font("Poppins", Font.PLAIN, 11));
 		panel.add(btnEliminar);
 		
-		JButton btnVoltar_1 = new JButton("Voltar");
-		btnVoltar_1.addActionListener(new ActionListener() {
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
-		btnVoltar_1.setFont(new Font("Poppins", Font.PLAIN, 11));
-		btnVoltar_1.setActionCommand("Cancel");
-		panel.add(btnVoltar_1);
+		btnVoltar.setFont(new Font("Poppins", Font.PLAIN, 11));
+		btnVoltar.setActionCommand("Cancel");
+		panel.add(btnVoltar);
 	}
 }
