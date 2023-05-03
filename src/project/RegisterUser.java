@@ -1,6 +1,7 @@
 package project;
 
 import java.awt.BorderLayout;
+import models.RegisterUserModel;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -122,6 +123,7 @@ public class RegisterUser extends JDialog {
 				//registrar usuário
 				QUERY = "INSERT INTO usuarios (nome, usuario, senha) "
 						+ "VALUES ('" + inputNome.getText() +"', '" + inputUser.getText() + "', '" + inputSenha.getText() +"')";
+				
 							
 				if(inputNome.getText().isBlank()) {
 					handleWindowMessage("Nome em branco!");
@@ -134,43 +136,7 @@ public class RegisterUser extends JDialog {
 					return;
 				}
 				
-				Connection conn = null;
-				PreparedStatement pstmt = null;
-				
-				//criar conexao
-				try {
-					conn = DriverManager.getConnection(DB_URL, USER, PASS);
-					pstmt =  conn.prepareStatement(QUERY);
-//					arrumar depois
-//					pstmt.setString(1, inputNome.getText());
-//					pstmt.setString(2, inputUser.getText());
-//					pstmt.setString(3, inputSenha.getText())
-//					pstmt.close();
-//					conn.close();
-
-					int result = pstmt.executeUpdate(QUERY);
-
-				    if(result == 0) {
-				    	handleWindowMessage("Erro ao criar conta!");
-				    } else {
-				    	handleWindowMessageSucess("Conta criada com sucesso!");
-				    	inputSenha.setText("");
-				    	inputUser.setText("");
-				    	inputNome.setText("");
-				    }
-
-				} catch (SQLException erro) {
-					erro.printStackTrace();
-				}
-				
-				//fechar conexao
-				try {
-				    if (conn != null) {
-				        conn.close();
-				    }
-				} catch (SQLException error) {
-				    System.out.println("Erro ao fechar a conexão com o banco de dados: " + error.getMessage());
-				}
+				RegisterUserModel.registerUser(QUERY, inputSenha, inputUser, inputNome);			
 			}
 		});
 		btnCadastrar.setFont(new Font("Poppins", Font.PLAIN, 11));
