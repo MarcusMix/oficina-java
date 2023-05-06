@@ -10,8 +10,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,8 +17,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
-import javax.swing.border.BevelBorder;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
 
 
@@ -81,7 +77,6 @@ public class TabelaClientes extends JDialog {
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
 				QUERY = "SELECT * FROM CLIENTES";
-			
 				
 				String id, nome, cpf, rg,  email, tel1 = null;
 				
@@ -91,7 +86,6 @@ public class TabelaClientes extends JDialog {
 					conn = DriverManager.getConnection(DB_URL, USER, PASS);
 					pstmt =  conn.prepareStatement(QUERY);
 					rs = pstmt.executeQuery(QUERY);
-					
 					
 					ClientesX.clear();
 					while(rs.next()) {
@@ -113,16 +107,12 @@ public class TabelaClientes extends JDialog {
 						ClientesX.add(clientes);
 					}
 					
-				} catch (SQLException e1) {
-					e1.printStackTrace();
+				} catch (SQLException error) {
+					error.printStackTrace();
 				}	
 				
 				ClientesTB pegaval = new ClientesTB(ClientesX);
 				table.setModel(pegaval);
-				System.out.println("Certo?" );
-				
-				
-				
 			}
 		});
 			
