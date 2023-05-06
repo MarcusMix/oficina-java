@@ -35,10 +35,6 @@ public class Login extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField inputUsuario;
 	private JPasswordField inputSenha;
-	static final String DB_NAME = "ordemservico";
-	static final String DB_URL = "jdbc:mysql://localhost/" + DB_NAME;
-	static final String USER = "root";
-	static final String PASS = "admin";
 	static String QUERY = null;
 
 	public static void main(String[] args, boolean logado) {
