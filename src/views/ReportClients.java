@@ -16,33 +16,23 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
-
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
 import javax.swing.ScrollPaneConstants;
 
 public class ReportClients extends JDialog {
-	
-	static final String DB_NAME = "ordemservico";
-	static final String DB_URL = "jdbc:mysql://localhost/" + DB_NAME;
-	static final String USER = "root";
-	static final String PASS = "admin";
-	static String QUERY = null;
 	
 	private final JPanel contentPanel = new JPanel();
 	private static JTable table;
 	
 	static List<ClientModel> ClientesX = new ArrayList<ClientModel>();
 	static ClientesTB pegador = new ClientesTB(ClientesX);
+	
 	private JTextField inputPesquisar;
+	static String QUERY = null;
 	
 
 	public static void main(String[] args) {
@@ -72,10 +62,11 @@ public class ReportClients extends JDialog {
 		}
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setEnabled(false);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(46, 95, 590, 141);
 		contentPanel.add(scrollPane);
+
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
