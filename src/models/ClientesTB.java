@@ -8,19 +8,19 @@ public class ClientesTB extends AbstractTableModel {
 	
 	private String[] colunas = new String[] { "ID", "Nome", "RG","CPF", "E-mail", "Telefone-1" };
 	
-	private static final int ID = 0;
-	private static final int NOME = 1;
-	private static final int RG = 2;
-	private static final int CPF = 3;
-	private static final int EMAIL = 4;
-	private static final int TELEFONE1 = 5;
+	private static final int NOME = 0;
+	private static final int CPF = 1;
+	private static final int EMAIL = 2;
+	private static final int TELEFONE1 = 3;
+	private static final int CIDADE = 4;
+	private static final int ESTADO = 5;
 	
 	
 	//clientes model
-	private List<ClienteModel> linhas;
+	private List<ClientModel> linhas;
 	
-	public ClientesTB(List<ClienteModel> listaClientes) {
-		linhas = new ArrayList<ClienteModel>(listaClientes);
+	public ClientesTB(List<ClientModel> listaClientes) {
+		linhas = new ArrayList<ClientModel>(listaClientes);
 	}
 	
 	@Override
@@ -48,21 +48,21 @@ public class ClientesTB extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 	    // Pega o local referente a linha especificada.
-		ClienteModel clientes = linhas.get(rowIndex);
+		ClientModel clientes = linhas.get(rowIndex);
 	 
 	    switch (columnIndex) {
-	    case ID:
-	        return clientes.getId();
 	    case NOME:
 	        return clientes.getNome();
-	    case RG:
-	        return clientes.getRg();
 	    case CPF:
 	        return clientes.getCpf();
 	    case EMAIL:
 	        return clientes.getEmail();
 	    case TELEFONE1:
 	        return clientes.getFone1();
+	    case CIDADE:
+	    	return clientes.getCidade();
+	    case ESTADO:
+	    	return clientes.getEstado();
 
 	    
 	    default:
@@ -73,18 +73,12 @@ public class ClientesTB extends AbstractTableModel {
 	    @Override
 		public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 		    // Seta o local referente a linha especificada.
-			ClienteModel clientes = linhas.get(rowIndex);
+			ClientModel clientes = linhas.get(rowIndex);
 			
 		 
 		    switch (columnIndex) {
-		    case ID:
-		    	clientes.setId((String) aValue);
-		        break;
 		    case NOME:
 		    	clientes.setNome((String) aValue);
-		    	break;
-		    case RG:
-		    	clientes.setRg((String) aValue);
 		    	break;
 		    case CPF:
 		    	clientes.setCpf((String) aValue);	
@@ -95,6 +89,10 @@ public class ClientesTB extends AbstractTableModel {
 		    case TELEFONE1:
 		    	clientes.setFone1((String) aValue);
 		        break;
+		    case CIDADE: 	
+		    	clientes.setCidade((String) aValue);
+		    case ESTADO:
+		    	clientes.setEstado((String) aValue);
 		    default:
 		        throw new IndexOutOfBoundsException("columnIndex out of bounds");
 		    }
@@ -113,7 +111,7 @@ public class ClientesTB extends AbstractTableModel {
 	 		}
 	 		 
 	 		// Adiciona uma lista de local  no final da lista.
-	 		public void addListaLocais(List<ClienteModel> clientes) {
+	 		public void addListaLocais(List<ClientModel> clientes) {
 	 		    // Pega o tamanho antigo da tabela, que servirá
 	 		    // como índice para o primeiro dos novos registros
 	 		    int indice = getRowCount();
