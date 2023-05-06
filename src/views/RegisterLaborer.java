@@ -42,9 +42,6 @@ public class RegisterLaborer extends JDialog {
 	private JFormattedTextField inputCEP;
 	private JTextField inputDataAdmissao;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		try {
 			RegisterLaborer dialog = new RegisterLaborer();
@@ -55,23 +52,6 @@ public class RegisterLaborer extends JDialog {
 		}
 	}
 	
-	
-	//message
-		public void handleWindowMessage(String text) {
-			Message message = new Message(text);
-			message.setLocationRelativeTo(null);
-			message.setVisible(true);
-		}
-		
-		public void handleWindowMessageSucess(String text) {
-			MessageSucess message = new MessageSucess(text);
-			message.setLocationRelativeTo(null);
-			message.setVisible(true);
-		}
-
-	/**
-	 * Create the dialog.RegisterClient
-	 */
 	public RegisterLaborer() {
 		setBounds(100, 100, 585, 726);
 		getContentPane().setLayout(new BorderLayout());
@@ -335,49 +315,40 @@ public class RegisterLaborer extends JDialog {
 
 									
 						if(inputNome.getText().isBlank()) {
-							handleWindowMessage("Nome em branco!");
+							MessageError.handleWindowMessage("Nome em branco!");
 							return;
 						} else if (inputRG.getText().isBlank()) {
-							handleWindowMessage("RG em branco!");
+							MessageError.handleWindowMessage("RG em branco!");
 							return;
 						} else if (inputCPF.getText().isBlank()) {
-							handleWindowMessage("CPF em branco!");
+							MessageError.handleWindowMessage("CPF em branco!");
 							return;
 						} else if (inputNascimento.getText().isBlank()) {
-							handleWindowMessage("Data de Nascimento em branco!");
+							MessageError.handleWindowMessage("Data de Nascimento em branco!");
 							return;
 						} else if (inputEmail.getText().isBlank()) {
-							handleWindowMessage("E-mail em branco!");
+							MessageError.handleWindowMessage("E-mail em branco!");
 							return;
 						} else if (inputTelefone1.getText().isBlank()) {
-							handleWindowMessage("Telefone 1 em branco!");
+							MessageError.handleWindowMessage("Telefone 1 em branco!");
 							return;
 						} else if (inputTelefone2.getText().isBlank()) {
-							handleWindowMessage("Telefone2 em branco!");
+							MessageError.handleWindowMessage("Telefone2 em branco!");
 							return;
-						} 
-//						else if (inputEstado.getText().isBlank()) {
-//							handleWindowMessage("Estado em branco!");
-//							return; }
-						 else if (inputCidade.getText().isBlank()) {
-							handleWindowMessage("Cidade em branco!");
+						} else if (inputCidade.getText().isBlank()) {
+							MessageError.handleWindowMessage("Cidade em branco!");
 							return;
 						} else if (inputRua.getText().isBlank()) {
-							handleWindowMessage("Rua em branco!");
+							MessageError.handleWindowMessage("Rua em branco!");
 							return;
 						} else if (inputBairro.getText().isBlank()) {
-							handleWindowMessage("Bairro em branco!");
+							MessageError.handleWindowMessage("Bairro em branco!");
 							return;
 						} else if (inputCEP.getText().isBlank()) {
-							handleWindowMessage("CEP em branco!");
+							MessageError.handleWindowMessage("CEP em branco!");
 							return;
 						} 
-						//arrumar
-//						else if (comboBoxCargo) {
-//							handleWindowMessage("Observação em branco!");
-//							return;
-//						}
-
+						
 						//criar conexao
 						try {
 							Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -386,9 +357,9 @@ public class RegisterLaborer extends JDialog {
 							int result = stmt.executeUpdate(QUERY);
 
 						    if(result == 0) {
-						    	handleWindowMessage("Erro cadastrar cliente!");
+						    	MessageError.handleWindowMessage("Erro cadastrar cliente!");
 						    } else {
-						    	handleWindowMessageSucess("Cliente cadastrado com sucesso!");
+						    	MessageSucess.handleWindowMessageSucess("Cliente cadastrado com sucesso!");
 						    	inputCPF.setText("");
 						    	inputRG.setText("");
 						    	inputNome.setText("");
