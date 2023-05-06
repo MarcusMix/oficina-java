@@ -5,13 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
-import views.Message;
+import views.MessageError;
 import views.MessageSucess;
-import views.UserView;
 
 public class UserModel {
 	static final String DB_NAME = "ordemservico";
@@ -26,27 +23,26 @@ public class UserModel {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		//criar conexao
 		try {
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			pstmt =  conn.prepareStatement(QUERY);
 			int result = pstmt.executeUpdate(QUERY);
 			
 			if(inputNome.getText().isBlank()) {
-				handleWindowMessage("Nome em branco!");
+				MessageError.handleWindowMessage("Nome em branco!");
 				return;
 			} else if (inputUser.getText().isBlank()) {
-				handleWindowMessage("Usuário em branco!");
+				MessageError.handleWindowMessage("Usuário em branco!");
 				return;
 			} else if (inputSenha.getText().isBlank()) {
-				handleWindowMessage("Senha em branco!");
+				MessageError.handleWindowMessage("Senha em branco!");
 				return;
 			}
 
 		    if(result == 0) {
-		    	handleWindowMessage("Erro ao criar conta!");
+		    	MessageError.handleWindowMessage("Erro ao criar conta!");
 		    } else {
-		    	handleWindowMessageSucess("Conta criada com sucesso!");
+		    	MessageSucess.handleWindowMessageSucess("Conta criada com sucesso!");
 		    	inputSenha.setText("");
 		    	inputUser.setText("");
 		    	inputNome.setText("");
@@ -56,7 +52,6 @@ public class UserModel {
 			erro.printStackTrace();
 		}
 		
-		//fechar conexao
 		try {
 		    if (conn != null) {
 		        conn.close();
@@ -82,7 +77,7 @@ public class UserModel {
 			rs = stmt.executeQuery(QUERY);
 
 			if(inputUser.getText().isBlank() && inputNome.getText().isBlank()) {
-				handleWindowMessage("Preencha um dos campos para pesquisar");
+				MessageError.handleWindowMessage("Preencha um dos campos para pesquisar");
 				return;
 			}
 			
@@ -97,7 +92,7 @@ public class UserModel {
 			}
 			
 			if(usuario == null) {
-				handleWindowMessage("Usuário não encontrado!");
+				MessageError.handleWindowMessage("Usuário não encontrado!");
 				return;
 			}
 			
@@ -111,7 +106,6 @@ public class UserModel {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 			
-			//criar conexao
 			try {
 				conn = DriverManager.getConnection(DB_URL, USER, PASS);
 				pstmt =  conn.prepareStatement(QUERY);
@@ -119,9 +113,9 @@ public class UserModel {
 				int result = pstmt.executeUpdate(QUERY);
 
 			    if(result == 0) {
-			    	handleWindowMessage("Erro ao remover conta!");
+			    	MessageError.handleWindowMessage("Erro ao remover conta!");
 			    } else {
-			    	handleWindowMessageSucess("Conta removida com sucesso!");
+			    	MessageSucess.handleWindowMessageSucess("Conta removida com sucesso!");
 			    	inputSenha.setText("");
 			    	inputUser.setText("");
 			    	inputNome.setText("");
@@ -132,21 +126,38 @@ public class UserModel {
 			}
 		
 	}
-	
-	//message
-	public static void handleWindowMessage(String text) {
-		Message message = new Message(text);
-		message.setLocationRelativeTo(null);
-		message.setVisible(true);
-	}
-	
-	public static void handleWindowMessageSucess(String text) {
-		MessageSucess message = new MessageSucess(text);
-		message.setLocationRelativeTo(null);
-		message.setVisible(true);
-	}
 
-	
+	public static boolean loginUser(String QUERY, JPasswordField inputSenha, JTextField inputUsuario) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		boolean fechar = false;
+		String usuario = null;
+		
+		try {
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			stmt =  conn.prepareStatement(QUERY);
+		    rs = stmt.executeQuery(QUERY);
+		    
+			while (rs.next()) {
+				 usuario = rs.getString("usuario");
+				
+				 if(usuario.equals(inputUsuario.getText())) {
+					 MessageSucess.handleWindowMessageSucess("Bem-vindo de volta!");
+					 return fechar = true;
+				 } 
+			}
 
+			if(usuario == null) {
+				MessageError.handleWindowMessage("Usuário ou senha incorreto!");
+				return fechar = false;
+			} 
+
+		} catch (SQLException erro) {
+			erro.printStackTrace();
+		}
+		return fechar;
+	}
 	
 }
