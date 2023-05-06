@@ -4,6 +4,7 @@ import java.sql.Connection;
 import project.RegisterUser;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JTextField;
@@ -22,6 +23,7 @@ public class RegisterUserModel {
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		
 		//criar conexao
 		try {
