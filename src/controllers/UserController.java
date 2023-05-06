@@ -2,7 +2,6 @@ package controllers;
 
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
 import models.UserModel;
 
 public class UserController {
@@ -22,4 +21,16 @@ public class UserController {
 		UserModel.deleteUser(QUERY, inputSenha, inputUser, inputNome);
 	}
 
+	public static boolean handleLoginUser(String QUERY, JPasswordField inputSenha,	JTextField inputUsuario) {
+
+		UserModel.loginUser(QUERY, inputSenha, inputUsuario);
+		
+		if(UserModel.loginUser(QUERY, inputSenha, inputUsuario) == true) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	
 }
