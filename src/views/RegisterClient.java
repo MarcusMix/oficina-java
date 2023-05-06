@@ -55,18 +55,6 @@ public class RegisterClient extends JDialog {
 		}
 	}
 	
-	//message
-	public void handleWindowMessage(String text) {
-		Message message = new Message(text);
-		message.setLocationRelativeTo(null);
-		message.setVisible(true);
-	}
-	
-	public void handleWindowMessageSucess(String text) {
-		MessageSucess message = new MessageSucess(text);
-		message.setLocationRelativeTo(null);
-		message.setVisible(true);
-	}
 
 	public RegisterClient() {
 		setBounds(100, 100, 585, 814);
@@ -299,40 +287,40 @@ public class RegisterClient extends JDialog {
 
 								
 					if(inputNome.getText().isBlank()) {
-						handleWindowMessage("Nome em branco!");
+						MessageError.handleWindowMessage("Nome em branco!");
 						return;
 					} else if (inputRG.getText().isBlank()) {
-						handleWindowMessage("RG em branco!");
+						MessageError.handleWindowMessage("RG em branco!");
 						return;
 					} else if (inputCPF.getText().isBlank()) {
-						handleWindowMessage("CPF em branco!");
+						MessageError.handleWindowMessage("CPF em branco!");
 						return;
 					} else if (inputNascimento.getText().isBlank()) {
-						handleWindowMessage("Data de Nascimento em branco!");
+						MessageError.handleWindowMessage("Data de Nascimento em branco!");
 						return;
 					} else if (inputEmail.getText().isBlank()) {
-						handleWindowMessage("E-mail em branco!");
+						MessageError.handleWindowMessage("E-mail em branco!");
 						return;
 					} else if (inputTelefone1.getText().isBlank()) {
-						handleWindowMessage("Telefone 1 em branco!");
+						MessageError.handleWindowMessage("Telefone 1 em branco!");
 						return;
 					} else if (inputTelefone2.getText().isBlank()) {
-						handleWindowMessage("Telefone2 em branco!");
+						MessageError.handleWindowMessage("Telefone2 em branco!");
 						return;
 					} else if (inputCidade.getText().isBlank()) {
-						handleWindowMessage("Cidade em branco!");
+						MessageError.handleWindowMessage("Cidade em branco!");
 						return;
 					} else if (inputRua.getText().isBlank()) {
-						handleWindowMessage("Rua em branco!");
+						MessageError.handleWindowMessage("Rua em branco!");
 						return;
 					} else if (inputBairro.getText().isBlank()) {
-						handleWindowMessage("Bairro em branco!");
+						MessageError.handleWindowMessage("Bairro em branco!");
 						return;
 					} else if (inputCEP.getText().isBlank()) {
-						handleWindowMessage("CEP em branco!");
+						MessageError.handleWindowMessage("CEP em branco!");
 						return;
 					} else if (inputOBS.getText().isBlank()) {
-						handleWindowMessage("Observação em branco!");
+						MessageError.handleWindowMessage("Observação em branco!");
 						return;
 					}
 
@@ -344,22 +332,22 @@ public class RegisterClient extends JDialog {
 						int result = stmt.executeUpdate(QUERY);
 
 					    if(result == 0) {
-					    	handleWindowMessage("Erro cadastrar cliente!");
+					    	MessageError.handleWindowMessage("Erro cadastrar cliente!");
 					    } else {
-					    	handleWindowMessageSucess("Cliente cadastrado com sucesso!");
-					    	inputCPF.setText("");
-					    	inputRG.setText("");
-					    	inputNome.setText("");
-					    	inputRG.setText("");
-					    	inputEmail.setText("");
-					    	inputNascimento.setText("");
-					    	inputOBS.setText("");
-					    	inputTelefone1.setText("");
-					    	inputTelefone2.setText("");
-					    	inputCidade.setText("");
-					    	inputBairro.setText("");
-					    	inputRua.setText("");
-					    	inputCEP.setText("");
+					    	MessageSucess.handleWindowMessageSucess("Cliente cadastrado com sucesso!");
+//					    	inputCPF.setText("");
+//					    	inputRG.setText("");
+//					    	inputNome.setText("");
+//					    	inputRG.setText("");
+//					    	inputEmail.setText("");
+//					    	inputNascimento.setText("");
+//					    	inputOBS.setText("");
+//					    	inputTelefone1.setText("");
+//					    	inputTelefone2.setText("");
+//					    	inputCidade.setText("");
+//					    	inputBairro.setText("");
+//					    	inputRua.setText("");
+//					    	inputCEP.setText("");
 					    }
 
 					} catch (SQLException erro) {
@@ -462,10 +450,10 @@ public class RegisterClient extends JDialog {
 						rs = stmt.executeUpdate(QUERY);
 						
 						if(rs == 0) {
-							handleWindowMessage("Erro ao excluir!");
+							MessageError.handleWindowMessage("Erro ao excluir!");
 							return;
 						} else {
-							handleWindowMessageSucess("Excluído com sucesso!");
+							MessageSucess.handleWindowMessageSucess("Excluído com sucesso!");
 							return;
 						}
 						
