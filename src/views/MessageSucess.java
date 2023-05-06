@@ -20,7 +20,7 @@ public class MessageSucess extends JDialog {
 
 	public static void main(String[] args) {
 		try {
-			Message dialog = new Message("");
+			MessageError dialog = new MessageError("");
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setResizable(false);
 		} catch (Exception e) {
@@ -68,5 +68,11 @@ public class MessageSucess extends JDialog {
 			}
 			
 		}
+	}
+	
+	public static void handleWindowMessageSucess(String text) {
+		MessageSucess message = new MessageSucess(text);
+		message.setLocationRelativeTo(null);
+		message.setVisible(true);
 	}
 }
