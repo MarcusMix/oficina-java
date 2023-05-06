@@ -7,6 +7,9 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controllers.UserController;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -45,19 +48,6 @@ public class Login extends JDialog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	//message
-	public void handleWindowMessage(String text) {
-		Message message = new Message(text);
-		message.setLocationRelativeTo(null);
-		message.setVisible(true);
-	}
-	
-	public void handleWindowMessageSucess(String text) {
-		MessageSucess message = new MessageSucess(text);
-		message.setLocationRelativeTo(null);
-		message.setVisible(true);
 	}
 
 	public Login() {
@@ -126,44 +116,10 @@ public class Login extends JDialog {
 						QUERY = "SELECT * FROM usuarios WHERE usuario = '" 
 						+ inputUsuario.getText() + "' AND senha = '" + inputSenha.getText() + "'";
 						
-						Connection conn = null;
-						PreparedStatement stmt = null;
-						ResultSet rs = null;
-						
-						String usuario = null;
-						
-						//criar conexao
-						try {
-							conn = DriverManager.getConnection(DB_URL, USER, PASS);
-							stmt =  conn.prepareStatement(QUERY);
-						    rs = stmt.executeQuery(QUERY);
-						    
-							while (rs.next()) {
-								 usuario = rs.getString("usuario");
-								
-								 //usuário existe
-								 if(usuario.equals(inputUsuario.getText())) {
-									 handleWindowMessageSucess("Bem-vindo de volta!");
-									 Login.this.dispose();
-								 } 
-							}
-							//usuário não existe
-							if(usuario == null) {
-								handleWindowMessage("Usuário ou senha incorreto!");
-								return;
-							}
-
-						} catch (SQLException erro) {
-							erro.printStackTrace();
-						}
-						
-						//fechar conexao
-						try {
-						    if (conn != null) {
-						        conn.close();
-						    }
-						} catch (SQLException error) {
-						    System.out.println("Erro ao fechar a conexão com o banco de dados: " + error.getMessage());
+						if(UserController.handleLoginUser(QUERY, inputSenha, inputUsuario)) {
+							Login.this.dispose();
+						} else {
+							return;
 						}
 					}
 				});
