@@ -30,7 +30,7 @@ public class TabelaClientes extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
 	
-	static List<ClienteModel> ClientesX = new ArrayList<ClienteModel>();
+	static List<ClientModel> ClientesX = new ArrayList<ClientModel>();
 	static ClientesTB pegador = new ClientesTB(ClientesX);
 
 	
@@ -96,10 +96,8 @@ public class TabelaClientes extends JDialog {
 						email = rs.getString("email");
 						tel1 = rs.getString("fone1");
 							
-						ClienteModel clientes = new ClienteModel();
-						clientes.setId(id);
+						ClientModel clientes = new ClientModel();
 						clientes.setNome(nome);
-						clientes.setRg(rg);
 						clientes.setCpf(cpf);;
 						clientes.setEmail(email);
 						clientes.setFone1(tel1);
