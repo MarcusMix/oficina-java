@@ -27,10 +27,6 @@ public class ReportClients extends JDialog {
 	
 	private final JPanel contentPanel = new JPanel();
 	private static JTable table;
-	
-	static List<ClientModel> ClientesX = new ArrayList<ClientModel>();
-	static ClientesTB pegador = new ClientesTB(ClientesX);
-	
 	private JTextField inputPesquisar;
 	static String QUERY = null;
 	
@@ -61,25 +57,39 @@ public class ReportClients extends JDialog {
 			contentPanel.add(lblRelatorioDeClientes);
 		}
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		
+
+		DefaultTableModel tableModel = new DefaultTableModel();
+		
+//		table = new JTable();
+//		table.setModel(new DefaultTableModel(
+//			new Object[][] {
+//			},
+//			new String[] {
+//				"Nome", "CPF", "E-mail ", "Telefone-1", "Cidade", "Estado"
+//			}
+//		));
+		
+		tableModel.addColumn("Nome");
+		tableModel.addColumn("CPF");
+		tableModel.addColumn("Email");
+		tableModel.addColumn("Telefone");
+		tableModel.addColumn("Cidade");
+		tableModel.addColumn("Estado");
+		table = new JTable(tableModel);
+		
+		JScrollPane scrollPane = new JScrollPane(table);
+//		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+//		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(46, 95, 590, 141);
 		contentPanel.add(scrollPane);
-
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Nome", "CPF", "E-mail ", "Telefone-1", "Cidade", "Estado"
-			}
-		));
-		table.getColumnModel().getColumn(0).setPreferredWidth(40);
-		table.getColumnModel().getColumn(0).setMinWidth(8);
+//		table.getColumnModel().getColumn(0).setPreferredWidth(40);
+//		table.getColumnModel().getColumn(0).setMinWidth(8);
 		table.setFont(new Font("Poppins", Font.PLAIN, 12));
-		scrollPane.setColumnHeaderView(table);
+//		scrollPane.setColumnHeaderView(table);
+		
+		
 		
 		inputPesquisar = new JTextField();
 		inputPesquisar.setFont(new Font("Poppins", Font.PLAIN, 11));
