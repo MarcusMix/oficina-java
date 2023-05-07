@@ -6,7 +6,7 @@ import javax.swing.table.AbstractTableModel;
 
 public class ClientesTB extends AbstractTableModel {
 	
-	private String[] colunas = new String[] { "ID", "Nome", "RG","CPF", "E-mail", "Telefone-1" };
+	private String[] colunas = new String[] { "Nome", "CPF", "E-mail","Telefone-1", "Cidade", "Estado" };
 	
 	private static final int NOME = 0;
 	private static final int CPF = 1;
