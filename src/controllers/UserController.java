@@ -22,14 +22,7 @@ public class UserController {
 	}
 
 	public static boolean handleLoginUser(String QUERY, JPasswordField inputSenha,	JTextField inputUsuario) {
-
-		UserModel.loginUser(QUERY, inputSenha, inputUsuario);
-		
-		if(UserModel.loginUser(QUERY, inputSenha, inputUsuario) == true) {
-			return true;
-		} else {
-			return false;
-		}
+		return UserModel.loginUser(QUERY, inputSenha, inputUsuario);
 	}
 
 	
