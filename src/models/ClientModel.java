@@ -7,9 +7,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import javax.swing.JComboBox;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import views.MessageError;
+import views.MessageSucess;
 
 public class ClientModel {
 	private String nome;
@@ -64,6 +67,7 @@ public class ClientModel {
 	public void setFone1(String fone1) {
 		this.fone1 = fone1;
 	}
+	
 	public static void searchClient(String QUERY, JTextField inputPesquisar, JTable table) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -149,5 +153,78 @@ public class ClientModel {
 		table.setModel(pegaval);
 		
 	}
+	public static void registerClient(String QUERY, JTextField inputNome, JTextField inputRG, JTextField inputCPF, JTextField inputRua, JTextField inputBairro, JTextField inputCidade, JComboBox comboBoxEstado, JTextField inputCEP, JTextField inputEmail, JTextField inputTelefone1, JTextField inputTelefone2, JTextArea inputOBS, JTextField inputNascimento) {
+		
+		if(inputNome.getText().isBlank()) {
+			MessageError.handleWindowMessage("Nome em branco!");
+			return;
+		} else if (inputRG.getText().isBlank()) {
+			MessageError.handleWindowMessage("RG em branco!");
+			return;
+		} else if (inputCPF.getText().isBlank()) {
+			MessageError.handleWindowMessage("CPF em branco!");
+			return;
+		} else if (inputNascimento.getText().isBlank()) {
+			MessageError.handleWindowMessage("Data de Nascimento em branco!");
+			return;
+		} else if (inputEmail.getText().isBlank()) {
+			MessageError.handleWindowMessage("E-mail em branco!");
+			return;
+		} else if (inputTelefone1.getText().isBlank()) {
+			MessageError.handleWindowMessage("Telefone 1 em branco!");
+			return;
+		} else if (inputTelefone2.getText().isBlank()) {
+			MessageError.handleWindowMessage("Telefone2 em branco!");
+			return;
+		} else if (inputCidade.getText().isBlank()) {
+			MessageError.handleWindowMessage("Cidade em branco!");
+			return;
+		} else if (inputRua.getText().isBlank()) {
+			MessageError.handleWindowMessage("Rua em branco!");
+			return;
+		} else if (inputBairro.getText().isBlank()) {
+			MessageError.handleWindowMessage("Bairro em branco!");
+			return;
+		} else if (inputCEP.getText().isBlank()) {
+			MessageError.handleWindowMessage("CEP em branco!");
+			return;
+		} else if (inputOBS.getText().isBlank()) {
+			MessageError.handleWindowMessage("Observação em branco!");
+			return;
+		}
+
+		//criar conexao
+		try {
+			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			PreparedStatement stmt =  conn.prepareStatement(QUERY);
+
+			int result = stmt.executeUpdate(QUERY);
+
+		    if(result == 0) {
+		    	MessageError.handleWindowMessage("Erro cadastrar cliente!");
+		    } else {
+		    	MessageSucess.handleWindowMessageSucess("Cliente cadastrado com sucesso!");
+		    	inputCPF.setText("");
+		    	inputRG.setText("");
+		    	inputNome.setText("");
+		    	inputRG.setText("");
+		    	inputEmail.setText("");
+		    	inputNascimento.setText("");
+		    	inputOBS.setText("");
+		    	inputTelefone1.setText("");
+		    	inputTelefone2.setText("");
+		    	inputCidade.setText("");
+		    	inputBairro.setText("");
+		    	inputRua.setText("");
+		    	inputCEP.setText("");
+		    }
+
+		} catch (SQLException erro) {
+			erro.printStackTrace();
+	}		
+
+		
+	}
+	
 	
 }
