@@ -2,7 +2,8 @@ package controllers;
 
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import models.UserModel;
+
+import models.user.UserModel;
 
 public class UserController {
 	
