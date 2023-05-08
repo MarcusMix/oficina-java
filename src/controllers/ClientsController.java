@@ -5,8 +5,8 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import models.ClientEachModel;
-import models.ClientModel;
+import models.client.ClientModel;
+import models.clientEach.ClientEachModel;
 
 public class ClientsController {
 
@@ -26,7 +26,7 @@ public class ClientsController {
 			JTextField inputRua, 
 			JTextField inputBairro,
 			JTextField inputCidade, 
-			JComboBox comboBoxEstado,
+			JComboBox<?> comboBoxEstado,
 			JTextField inputCEP, 
 			JTextField inputEmail, 
 			JTextField inputTelefone1, 
@@ -65,5 +65,9 @@ public class ClientsController {
 
 	public static void handleDeleteClient(String QUERY, JTextField inputNome, JTextField inputCPF) {
 		ClientEachModel.deleteClients(QUERY, inputNome, inputCPF);
+	}
+	
+	public static void handleSearchAllClients(String QUERY, JTable table, JTextField inputPesquisar) {
+		ClientEachModel.searchAllClients(QUERY, table, inputPesquisar);
 	}
 }
