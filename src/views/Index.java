@@ -5,6 +5,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import views.client.RegisterClient;
+import views.client.ReportClients;
+import views.laborer.RegisterLaborer;
+import views.user.UserView;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GraphicsConfiguration;
