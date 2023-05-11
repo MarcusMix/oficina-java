@@ -1,41 +1,36 @@
 package views.client;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-
-import controllers.ClientsController;
-import models.client.ClientModel;
-import models.client.ClientesTB;
-
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
-import java.util.ArrayList;
-import java.util.List;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
-import javax.swing.ScrollPaneConstants;
+import controllers.ClientsController;
 
 public class ReportClients extends JDialog {
 	
 	private final JPanel contentPanel = new JPanel();
 	private static JTable table;
 	private JTextField inputPesquisar;
+	private JLabel lblRelatorioDeClientes;
+	private DefaultTableModel tableModel;
+	private JScrollPane scrollPane;
+	private JButton btnPesquisar;
+	private JLabel lblNewLabel;
+	private JButton btnLimpar;
+	private JPanel buttonPane;
+	private JButton okButton;
 	static String QUERY = null;
 	
 
@@ -58,15 +53,14 @@ public class ReportClients extends JDialog {
 		contentPanel.setLayout(null);
 
 		
-		JLabel lblRelatorioDeClientes = new JLabel("Relatorio de Clientes");
+		lblRelatorioDeClientes = new JLabel("Relatorio de Clientes");
 		lblRelatorioDeClientes.setBounds(0, 0, 681, 51);
 		lblRelatorioDeClientes.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRelatorioDeClientes.setFont(new Font("Poppins ExtraBold", Font.PLAIN, 20));
 		contentPanel.add(lblRelatorioDeClientes);
 		
 		//tabela config
-		DefaultTableModel tableModel = new DefaultTableModel();
-		
+		tableModel = new DefaultTableModel();
 		tableModel.addColumn("Nome");
 		tableModel.addColumn("CPF");
 		tableModel.addColumn("Email");
@@ -75,12 +69,13 @@ public class ReportClients extends JDialog {
 		tableModel.addColumn("Estado");
 		tableModel.addColumn("Editar");
 		table = new JTable(tableModel);
+		table.setFont(new Font("Poppins", Font.PLAIN, 12));		
+		//----------
 		
-		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(46, 95, 590, 141);
 		contentPanel.add(scrollPane);
 		
-		table.setFont(new Font("Poppins", Font.PLAIN, 12));		
 		
 		inputPesquisar = new JTextField();
 		inputPesquisar.setFont(new Font("Poppins", Font.PLAIN, 11));
@@ -88,9 +83,10 @@ public class ReportClients extends JDialog {
 		contentPanel.add(inputPesquisar);
 		inputPesquisar.setColumns(10);
 		
+		//pegar os dados para preencher a tabela
 		ClientsController.handleDataClients(table);
 		
-		JButton btnPesquisar = new JButton();
+		btnPesquisar = new JButton();
 		btnPesquisar.setIcon(new ImageIcon("C:\\Users\\vini6\\Documents\\ADS\\Desenvolvimento-desktop\\oficina\\images\\search-icon_resized.png"));
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -105,12 +101,12 @@ public class ReportClients extends JDialog {
 		btnPesquisar.setBounds(466, 52, 30, 23);
 		contentPanel.add(btnPesquisar);
 		
-		JLabel lblNewLabel = new JLabel("Pesquisar:");
+		lblNewLabel = new JLabel("Pesquisar:");
 		lblNewLabel.setFont(new Font("Poppins", Font.PLAIN, 14));
 		lblNewLabel.setBounds(146, 54, 69, 18);
 		contentPanel.add(lblNewLabel);
 		
-		JButton btnLimpar = new JButton("Limpar");
+		btnLimpar = new JButton("Limpar");
 		btnLimpar.setFont(new Font("Poppins", Font.PLAIN, 11));
 		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -122,11 +118,11 @@ public class ReportClients extends JDialog {
 		btnLimpar.setBounds(501, 52, 75, 23);
 		contentPanel.add(btnLimpar);
 
-		JPanel buttonPane = new JPanel();
+		buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 		
-		JButton okButton = new JButton("OK");
+		okButton = new JButton("OK");
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
