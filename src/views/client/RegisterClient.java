@@ -48,6 +48,7 @@ public class RegisterClient extends JDialog {
 
 	static String QUERY = null;
 	private final JPanel contentPanel = new JPanel();
+	private JLabel lblNascimento;
 	private static JTable table;
 
 	public static void main(String[] args) {
@@ -131,7 +132,7 @@ public class RegisterClient extends JDialog {
 		inputNascimento.setBounds(110, 184, 226, 25);
 		contentPanel.add(inputNascimento);
 
-		JLabel lblNascimento = new JLabel("Data de nascimento");
+		lblNascimento = new JLabel("Data de nascimento");
 		lblNascimento.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNascimento.setFont(new Font("Poppins", Font.PLAIN, 14));
 		lblNascimento.setBounds(110, 163, 226, 22);

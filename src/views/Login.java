@@ -109,10 +109,8 @@ public class Login extends JDialog {
 				btnEntrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
-						QUERY = "SELECT * FROM usuarios WHERE usuario = '" 
-						+ inputUsuario.getText() + "' AND senha = '" + inputSenha.getText() + "'";
 						
-						if(UserController.handleLoginUser(QUERY, inputSenha, inputUsuario)) {
+						if(UserController.handleLoginUser(inputSenha, inputUsuario)) {
 							Login.this.dispose();
 						} else {
 							return;

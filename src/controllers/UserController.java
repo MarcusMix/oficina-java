@@ -22,8 +22,8 @@ public class UserController {
 		UserModel.deleteUser(QUERY, inputSenha, inputUser, inputNome);
 	}
 
-	public static boolean handleLoginUser(String QUERY, JPasswordField inputSenha,	JTextField inputUsuario) {
-		return UserModel.loginUser(QUERY, inputSenha, inputUsuario);
+	public static boolean handleLoginUser(JPasswordField inputSenha,	JTextField inputUsuario) {
+		return UserModel.loginUser(inputSenha, inputUsuario);
 	}
 
 	

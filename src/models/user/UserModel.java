@@ -128,10 +128,13 @@ public class UserModel {
 		
 	}
 
-	public static boolean loginUser(String QUERY, JPasswordField inputSenha, JTextField inputUsuario) {
+	public static boolean loginUser(JPasswordField inputSenha, JTextField inputUsuario) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
+
+		QUERY = "SELECT * FROM usuarios WHERE usuario = '" 
+		+ inputUsuario.getText() + "' AND senha = '" + inputSenha.getText() + "'";
 		
 		boolean fechar = false;
 		String usuario = null;

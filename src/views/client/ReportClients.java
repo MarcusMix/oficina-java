@@ -61,13 +61,13 @@ public class ReportClients extends JDialog {
 		
 		//tabela config
 		tableModel = new DefaultTableModel();
-		tableModel.addColumn("Nome");
-		tableModel.addColumn("CPF");
-		tableModel.addColumn("Email");
-		tableModel.addColumn("Telefone");
-		tableModel.addColumn("Cidade");
-		tableModel.addColumn("Estado");
-		tableModel.addColumn("Editar");
+//		tableModel.addColumn("Nome");
+//		tableModel.addColumn("CPF");
+//		tableModel.addColumn("Email");
+//		tableModel.addColumn("Telefone");
+//		tableModel.addColumn("Cidade");
+//		tableModel.addColumn("Estado");
+//		tableModel.addColumn("Editar");
 		table = new JTable(tableModel);
 		table.setFont(new Font("Poppins", Font.PLAIN, 12));		
 		//----------
